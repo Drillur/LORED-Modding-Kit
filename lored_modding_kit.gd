@@ -52,13 +52,16 @@ func _repeatedly_check_if_exporting_self() -> void:
 #region Utility
 
 
+@warning_ignore("unused_variable")
 @export var _create_info_json: bool = false:
 	set = create_info_json
+
+@warning_ignore("unused_variable")
 @export var _create_lored_data_json: bool = false:
 	set = create_lored_data_json
 
 
-func create_info_json(val: bool) -> void:
+func create_info_json(_val: bool) -> void:
 	const BASE_DATA: Dictionary = {
 		"key": "short_identifier",
 		"affects save": false,
@@ -72,7 +75,7 @@ func create_info_json(val: bool) -> void:
 	print("Created res://info.json! Move it to your mod directory.")
 
 
-func create_lored_data_json(val: bool) -> void:
+func create_lored_data_json(_val: bool) -> void:
 	const BASE_DATA: Dictionary = {
 		"Key": "iron",
 		"Title": "Iron",
@@ -119,9 +122,22 @@ static func emit_mods_loaded() -> void:
 
 
 ## Stops specified (or all, if none specified)
-## LOREDs from working and removes their prefabs.
-static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
+## LOREDs from working, removes their prefabs, and deletes them from memory.
+## If you are replacing the old LOREDs, call this before adding new ones.
+static func kill_loreds(_loreds_to_kill: Array[StringName] = []) -> void:
 	pass
+
+
+## Removes 
+static func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
+	pass
+
+## Creates a new LORED using the provided parameters and stores him in memory.
+## You must also create a 
+static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
+	pass
+
+
 
 
 #endregion
@@ -134,7 +150,7 @@ static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 
 
 ## If appropriate, returns your mod's main.tscn if you pass in your own key.
-static func get_main_scene(key: StringName) -> PackedScene:
+static func get_main_scene(_key: StringName) -> PackedScene:
 	return null
 
 
@@ -151,7 +167,9 @@ class SignalBus:
 	extends Object
 	
 	
+	@warning_ignore("unused_signal")
 	signal mods_loaded ## Emitted by Mod.load_enabled_mods() when done loading mods
+	@warning_ignore("unused_signal")
 	signal classes_changed ## If you add any custom Classes, they cannot be used until this emits.
 
 
