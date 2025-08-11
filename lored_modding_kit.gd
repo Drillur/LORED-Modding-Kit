@@ -21,6 +21,8 @@ static func _static_init() -> void:
 	_check_if_exporting_self()
 
 
+## If you have not added LORED-Modding-Kit/* to your exluded files field in
+## your export settings, this will print an error message.
 static func _check_if_exporting_self() -> bool:
 	var config := ConfigFile.new()
 	var error := config.load("res://export_presets.cfg")
@@ -41,62 +43,7 @@ func _repeatedly_check_if_exporting_self() -> void:
 	while true:
 		if _check_if_exporting_self():
 			return
-		await get_tree().create_timer(60.0).timeout
-
-
-#endregion
-
-
-#region Signals
-
-
-static func emit_mods_loaded() -> void:
-	signals.mods_loaded.emit()
-
-
-#endregion
-
-
-#region Control
-
-
-static func cache_script(mod_key: StringName, script_path: String) -> void:
-	var list: Dictionary = cached_scripts.get_or_add(mod_key, {})
-	if not list.has(script_path):
-		var script: GDScript = load(script_path)
-		if script:
-			list[script_path] = script
-			print("%s - Script cached successfully! (%s)" % [mod_key, script_path])
-		else:
-			print("%s - Script caching failed. Could the path be wrong? %s" % [mod_key, script_path])
-
-
-#region LOREDs
-
-
-## Stops specified (or all, if none specified)
-## LOREDs from working and removes their prefabs.
-static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
-	if loreds_to_kill.is_empty():
-		for lored_key: StringName in LORED.list.keys():
-			loreds_to_kill.append(lored_key)
-	for lored_key: StringName in loreds_to_kill:
-		LORED.fetch(lored_key).kill()
-	LORED.signals.emit_lored_killed()
-
-
-#endregion
-
-
-#endregion
-
-
-#region Get Values
-
-
-## Returns the PackedScene of `key` which was loaded by LORED, or null
-static func get_main_scene(key: StringName) -> PackedScene:
-	return Mod.mod_packed_scenes.get(key)
+		await get_tree().create_timer(20.0).timeout
 
 
 #endregion
@@ -152,6 +99,51 @@ func create_lored_data_json(val: bool) -> void:
 #endregion
 
 
+#region Methods which are overriden in LORED
+
+
+#region Signals
+
+
+static func emit_mods_loaded() -> void:
+	pass
+
+
+#endregion
+
+
+#region Control
+
+
+#region LOREDs
+
+
+## Stops specified (or all, if none specified)
+## LOREDs from working and removes their prefabs.
+static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
+	pass
+
+
+#endregion
+
+
+#endregion
+
+
+#region Get Values
+
+
+## If appropriate, returns your mod's main.tscn if you pass in your own key.
+static func get_main_scene(key: StringName) -> PackedScene:
+	return null
+
+
+#endregion
+
+
+#endregion
+
+
 #region Classes
 
 
@@ -160,6 +152,7 @@ class SignalBus:
 	
 	
 	signal mods_loaded ## Emitted by Mod.load_enabled_mods() when done loading mods
+	signal classes_changed ## If you add any custom Classes, they cannot be used until this emits.
 
 
 #endregion
