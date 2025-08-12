@@ -1,38 +1,38 @@
-@tool
-class_name Kit
+#class_name Kit
 extends Node
 
 
 ## The official LORED modding kit
 
 
-static var instance: Kit
-static var signals := SignalBus.new()
+const PATH: String = "res://groups/mod/LORED-Modding-Kit/"
+
+var signals := SignalBus.new()
 
 ## In LORED, this holds any scripts added by mods
 ## (except for main.gd, which is cached elsewhere when the mod is loaded)
-static var cached_scripts: Dictionary[StringName, Dictionary]
+var cached_scripts: Dictionary[StringName, Dictionary]
 
 
-#region Static
+#region Ready
 
 
-#region Init
+func _ready() -> void:
+	_repeatedly_check_if_exporting_self()
+	_create_info_json()
+	_create_lored_data_json()
 
 
-static func _static_init() -> void:
-	if not Engine.is_editor_hint():
-		return
-	if ProjectSettings.get_setting("application/config/name") == "LORED":
-		return
-	
-	print("LORED Modding Kit _static_init()")
-	_check_if_exporting_self()
+func _repeatedly_check_if_exporting_self() -> void:
+	while true:
+		if ProjectSettings.get_setting("application/config/name") == "LORED":
+			return
+		if _check_if_exporting_self():
+			return
+		await get_tree().create_timer(20.0).timeout
 
 
-## If you have not added LORED-Modding-Kit/* to your exluded files field in
-## your export settings, this will print an error message.
-static func _check_if_exporting_self() -> bool:
+func _check_if_exporting_self() -> bool:
 	var config := ConfigFile.new()
 	var error := config.load("res://export_presets.cfg")
 	if error == OK:
@@ -47,45 +47,10 @@ static func _check_if_exporting_self() -> bool:
 #endregion
 
 
-#endregion
-
-
-#endregion
-
-
-#region Ready
-
-
-func _ready() -> void:
-	instance = self
-	_repeatedly_check_if_exporting_self()
-
-
-func _repeatedly_check_if_exporting_self() -> void:
-	while true:
-		if ProjectSettings.get_setting("application/config/name") == "LORED":
-			return
-		if _check_if_exporting_self():
-			return
-		await get_tree().create_timer(20.0).timeout
-
-
-#endregion
-
-
 #region Utility
 
 
-@warning_ignore("unused_private_class_variable")
-@export var __create_info_json: bool = false:
-	set = _create_info_json
-
-@warning_ignore("unused_private_class_variable")
-@export var __create_lored_data_json: bool = false:
-	set = _create_lored_data_json
-
-
-func _create_info_json(_val: bool) -> void:
+func _create_info_json() -> void:
 	const BASE_DATA: Dictionary = {
 		"key": "unique_identifier",
 		"author": "your_username",
@@ -95,23 +60,22 @@ func _create_info_json(_val: bool) -> void:
 		"affects save": false,
 	}
 	
-	if not _val:
+	var info_json_path: String = PATH.path_join("templates/info.json")
+	if ResourceLoader.exists(info_json_path):
 		return
 	
-	var file = FileAccess.open("res://info.json", FileAccess.WRITE)
+	var file = FileAccess.open(info_json_path, FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
-	print("Created res://info.json! Move it to your mod directory.")
-	print("Explanations of the info data fields:")
-	print(" - Bbcode must not be used in this file.")
-	print(" - key: The mod's unique identifier. If it conflicts with another mod, it may be overwritten. LORED prepends the author text before the key to help make it more unlikely.")
-	print(" - author: The mod's author.")
-	print(" - display name: The name the players will see in-game.")
-	print(" - description: A short summary of the mod's effects.")
-	print(" - color: Various UI elements will use this color.")
-	print(" - affects save: Set to true if the mod is expected to affect the save in any way.")
+	#print(" - Bbcode must not be used in this file.")
+	#print(" - key: The mod's unique identifier. If it conflicts with another mod, it may be overwritten. LORED prepends the author text before the key to help make it more unlikely.")
+	#print(" - author: The mod's author.")
+	#print(" - display name: The name the players will see in-game.")
+	#print(" - description: A short summary of the mod's effects.")
+	#print(" - color: Various UI elements will use this color.")
+	#print(" - affects save: Set to true if the mod is expected to affect the save in any way.")
 
 
-func _create_lored_data_json(_val: bool) -> void:
+func _create_lored_data_json() -> void:
 	const BASE_DATA: Dictionary = {
 		"Key": "iron",
 		"Title": "Iron",
@@ -131,29 +95,28 @@ func _create_lored_data_json(_val: bool) -> void:
 		"Autobuyer Level": 20,
 	}
 	
-	if not _val:
+	var lored_template_path: String = PATH.path_join("templates/lored_template.json")
+	if ResourceLoader.exists(lored_template_path):
 		return
 	
-	var file = FileAccess.open("res://new_lored.json", FileAccess.WRITE)
+	var file = FileAccess.open(lored_template_path, FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
-	print("Created res://new_lored.json! Rename it and change the values.")
-	print("Explanations of LORED data fields:")
-	print(" - Key: The LORED's unique identifier.")
-	print(" - Title: The LORED's official job title.")
-	print(" - Name: The LORED's actual name.")
-	print(" - Icon: Use the filename of the icon you want to use. Do not include the extension or path.")
-	print(" - Color: The hex code for the LORED's color.")
-	print(" - Descrption: Optional - some flavor text")
-	print(" - Favorite Thing: Optional - more flavor text")
-	print(" - Class: You may create your own class which extends LORED to add custom class behavior.")
-	print(" - Stage: The key of the Stage that the LORED belongs to. If you add a custom Stage, set the key to that Stage's key.")
-	print(" - Price: The base price for leveling up the LORED.")
-	print(" - Price Increase: The amount the LORED's price increases by per level.")
-	print(" - Maximum Expected Level: This determines how high LORED will cache its prices for quick purchasing.")
-	print(" - Jobs: The starting job list for the LORED. If you want multiple, separate by a comma and a space. Example: growth, growth2")
-	print(" - Primary Jobs: The job which affects currency rates. Growth only has 'growth' for this field. growth2 is not counted for rates.")
-	print(" - Primary Currencies: The currencies which are displayed on the LORED HUD. If there are multiple, they will be cycled every 3 seconds.")
-	print(" - Autobuyer Level: The level required to unlock the LORED's autobuyer. ")
+	#print(" - Key: The LORED's unique identifier.")
+	#print(" - Title: The LORED's official job title.")
+	#print(" - Name: The LORED's actual name.")
+	#print(" - Icon: Use the filename of the icon you want to use. Do not include the extension or path.")
+	#print(" - Color: The hex code for the LORED's color.")
+	#print(" - Descrption: Optional - some flavor text")
+	#print(" - Favorite Thing: Optional - more flavor text")
+	#print(" - Class: You may create your own class which extends LORED to add custom class behavior.")
+	#print(" - Stage: The key of the Stage that the LORED belongs to. If you add a custom Stage, set the key to that Stage's key.")
+	#print(" - Price: The base price for leveling up the LORED.")
+	#print(" - Price Increase: The amount the LORED's price increases by per level.")
+	#print(" - Maximum Expected Level: This determines how high LORED will cache its prices for quick purchasing.")
+	#print(" - Jobs: The starting job list for the LORED. If you want multiple, separate by a comma and a space. Example: growth, growth2")
+	#print(" - Primary Jobs: The job which affects currency rates. Growth only has 'growth' for this field. growth2 is not counted for rates.")
+	#print(" - Primary Currencies: The currencies which are displayed on the LORED HUD. If there are multiple, they will be cycled every 3 seconds.")
+	#print(" - Autobuyer Level: The level required to unlock the LORED's autobuyer.")
 
 
 #endregion
@@ -178,7 +141,7 @@ func emit_mods_loaded() -> void:
 ## Stops specified (or all, if none specified)
 ## LOREDs from working, removes their prefabs, and deletes them from memory.
 ## If you are replacing the old LOREDs, call this before adding new ones.
-static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
+func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	if loreds_to_kill.is_empty():
 		for lored_key: StringName in LORED.list.keys():
 			loreds_to_kill.append(lored_key)
@@ -188,12 +151,12 @@ static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 
 
 ## Removes 
-static func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
+func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
 	pass
 
 ## Creates a new LORED using the provided parameters and stores him in memory.
 ## You must also create a 
-static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
+func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
 	pass
 
 
