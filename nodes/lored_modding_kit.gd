@@ -73,7 +73,7 @@ static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 		LORED.signals.emit_lored_killed()",
 		["loreds_to_kill"]
 	)
-	expression.execute(loreds_to_kill)
+	expression.execute([loreds_to_kill])
 	
 
 
@@ -98,7 +98,9 @@ static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
 
 ## If appropriate, returns your mod's main.tscn if you pass in your own key.
 static func get_main_scene(key: StringName) -> PackedScene:
-	return Mod.mod_packed_scenes.get(key)
+	var expression := Expression.new()
+	expression.parse("Mod.mod_packed_scenes.get(key)", ["key"])
+	return expression.execute([key])
 
 
 #endregion
