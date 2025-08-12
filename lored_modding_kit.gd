@@ -30,8 +30,8 @@ static func _check_if_exporting_self() -> bool:
 	var error := config.load("res://export_presets.cfg")
 	if error == OK:
 		var text: String = config.encode_to_text()
-		if not text.contains("LORED-Moddking-Kit/*"):
-			printerr("Please add LORED-Moddking-Kit/* to the excluded files/folders field in your export settings (resource tab).")
+		if not text.contains("LORED-Modding-Kit/*"):
+			printerr("Please add LORED-Modding-Kit/* to the excluded files/folders field in your export settings (resource tab).")
 			return false
 		return true
 	return false
@@ -65,12 +65,12 @@ func _repeatedly_check_if_exporting_self() -> void:
 
 func create_info_json(_val: bool) -> void:
 	const BASE_DATA: Dictionary = {
-		"key": "short_identifier",
-		"affects save": false,
-		"display name": "ModName",
+		"key": "unique_identifier",
 		"author": "your_username",
+		"display name": "ModName",
 		"description": "short_summary_of_mods_effects",
 		"color": "#hex_color_for_your_mod",
+		"affects save": false,
 	}
 	
 	if not _val:
@@ -85,20 +85,20 @@ func create_lored_data_json(_val: bool) -> void:
 	const BASE_DATA: Dictionary = {
 		"Key": "iron",
 		"Title": "Iron",
-		"Class": "LORED",
 		"Name": "Will",
-		"Stage": 1,
-		"Icon": "iron (filename without extension of icon)",
-		"Primary Currencies": "iron (if you want multiple: growth, juice)",
+		"Icon": "iron",
+		"Color": "#12e3ff",
+		"Description": "Wants everyone to succeed.",
+		"Favorite Thing": "Pizza parties!",
+		"Class": "LORED",
+		"Stage": "main1",
 		"Price": "9 stone, 8 copper",
 		"Price Increase": 3.0,
 		"Maximum Expected Level": 1000,
-		"Jobs": "iron (starting jobs. growth example: growth, growth2)",
-		"Primary Jobs": "iron (used for rate calculation & offline earnings)",
-		"Color": "#12e3ff (also accepts: 0.07, 0.89, 1)",
+		"Jobs": "iron",
+		"Primary Jobs": "iron",
+		"Primary Currencies": "iron",
 		"Autobuyer Level": 20,
-		"Favorite Thing": "Pizza parties!",
-		"Description": "Wants everyone to succeed.",
 	}
 	
 	if not _val:
@@ -106,7 +106,24 @@ func create_lored_data_json(_val: bool) -> void:
 	
 	var file = FileAccess.open("res://new_lored.json", FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
-	print("Created res://new_lored.json! Move it to your mod directory.")
+	print("Created res://new_lored.json! Rename it and change the values.")
+	print("Explanations:")
+	print(" - Key:\n - \tThe LORED's unique identifier.")
+	print(" - Title:\n - \tThe LORED's official job title.")
+	print(" - Name:\n - \tThe LORED's actual name.")
+	print(" - Icon:\n - \tUse the filename of the icon you want to use. Do not include the extension or path.")
+	print(" - Color:\n - \tThe hex code for the LORED's color.")
+	print(" - Descrption:\n - \tOptional - some flavor text")
+	print(" - Favorite Thing:\n - \tOptional - more flavor text")
+	print(" - Class:\n - \tYou may create your own class which extends LORED to add custom class behavior.")
+	print(" - Stage:\n - \tThe key of the Stage that the LORED belongs to. If you add a custom Stage, set the key to that Stage's key.")
+	print(" - Price:\n - \tThe base price for leveling up the LORED.")
+	print(" - Price Increase:\n - \tThe amount the LORED's price increases by per level.")
+	print(" - Maximum Expected Level:\n - \tThis determines how high LORED will cache its prices for quick purchasing.")
+	print(" - Jobs:\n - \tThe starting job list for the LORED. If you want multiple, separate by a comma and a space. Example: growth, growth2")
+	print(" - Primary Jobs:\n - \tThe job which affects currency rates. Growth only has 'growth' for this field. growth2 is not counted for rates.")
+	print(" - Primary Currencies:\n - \tThe currencies which are displayed on the LORED HUD. If there are multiple, they will be cycled every 3 seconds.")
+	print(" - Autobuyer Level:\n - \tThe level required to unlock the LORED's autobuyer. ")
 
 
 #endregion
