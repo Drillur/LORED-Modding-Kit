@@ -17,6 +17,8 @@ static var cached_scripts: Dictionary[StringName, Dictionary]
 
 
 static func _static_init() -> void:
+	if not Engine.is_editor_hint():
+		return
 	print("LORED Modding Kit _static_init()")
 	_check_if_exporting_self()
 
@@ -52,11 +54,11 @@ func _repeatedly_check_if_exporting_self() -> void:
 #region Utility
 
 
-@warning_ignore("unused_variable")
+@warning_ignore("unused_private_class_variable")
 @export var _create_info_json: bool = false:
 	set = create_info_json
 
-@warning_ignore("unused_variable")
+@warning_ignore("unused_private_class_variable")
 @export var _create_lored_data_json: bool = false:
 	set = create_lored_data_json
 
@@ -70,6 +72,10 @@ func create_info_json(_val: bool) -> void:
 		"description": "short_summary_of_mods_effects",
 		"color": "#hex_color_for_your_mod",
 	}
+	
+	if not _val:
+		return
+	
 	var file = FileAccess.open("res://info.json", FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
 	print("Created res://info.json! Move it to your mod directory.")
@@ -94,6 +100,10 @@ func create_lored_data_json(_val: bool) -> void:
 		"Favorite Thing": "Pizza parties!",
 		"Description": "Wants everyone to succeed.",
 	}
+	
+	if not _val:
+		return
+	
 	var file = FileAccess.open("res://new_lored.json", FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
 	print("Created res://new_lored.json! Move it to your mod directory.")
