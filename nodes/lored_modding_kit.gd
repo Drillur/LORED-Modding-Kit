@@ -6,6 +6,7 @@ extends Node
 ## The official LORED modding kit
 
 
+static var instance: Kit
 static var signals := SignalBus.new()
 
 ## In LORED, this holds any scripts added by mods
@@ -22,6 +23,9 @@ static var cached_scripts: Dictionary[StringName, Dictionary]
 static func _static_init() -> void:
 	if not Engine.is_editor_hint():
 		return
+	if ProjectSettings.get_setting("application/config/name") == "LORED":
+		return
+	
 	print("LORED Modding Kit _static_init()")
 	_check_if_exporting_self()
 
@@ -43,59 +47,6 @@ static func _check_if_exporting_self() -> bool:
 #endregion
 
 
-#region Signals
-
-
-static func emit_mods_loaded() -> void:
-	signals.mods_loaded.emit()
-
-
-#endregion
-
-
-#region Control
-
-
-#region LOREDs
-
-
-## Stops specified (or all, if none specified)
-## LOREDs from working, removes their prefabs, and deletes them from memory.
-## If you are replacing the old LOREDs, call this before adding new ones.
-static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
-	if loreds_to_kill.is_empty():
-		for lored_key: StringName in LORED.list.keys():
-			loreds_to_kill.append(lored_key)
-	for lored_key: StringName in loreds_to_kill:
-		LORED.fetch(lored_key).kill()
-	LORED.signals.emit_lored_killed()
-	
-
-
-## Removes 
-static func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
-	pass
-
-## Creates a new LORED using the provided parameters and stores him in memory.
-## You must also create a 
-static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
-	pass
-
-
-#endregion
-
-
-#endregion
-
-
-#region Get Values
-
-
-## If appropriate, returns your mod's main.tscn if you pass in your own key.
-static func get_main_scene(key: StringName) -> PackedScene:
-	return Mod.mod_packed_scenes.get(key)
-
-
 #endregion
 
 
@@ -106,11 +57,14 @@ static func get_main_scene(key: StringName) -> PackedScene:
 
 
 func _ready() -> void:
+	instance = self
 	_repeatedly_check_if_exporting_self()
 
 
 func _repeatedly_check_if_exporting_self() -> void:
 	while true:
+		if ProjectSettings.get_setting("application/config/name") == "LORED":
+			return
 		if _check_if_exporting_self():
 			return
 		await get_tree().create_timer(20.0).timeout
@@ -200,6 +154,50 @@ func _create_lored_data_json(_val: bool) -> void:
 	print(" - Primary Jobs: The job which affects currency rates. Growth only has 'growth' for this field. growth2 is not counted for rates.")
 	print(" - Primary Currencies: The currencies which are displayed on the LORED HUD. If there are multiple, they will be cycled every 3 seconds.")
 	print(" - Autobuyer Level: The level required to unlock the LORED's autobuyer. ")
+
+
+#endregion
+
+
+#region Control
+
+
+#region Signals
+
+
+func emit_mods_loaded() -> void:
+	signals.mods_loaded.emit()
+
+
+#endregion
+
+
+#region LOREDs
+
+
+## Stops specified (or all, if none specified)
+## LOREDs from working, removes their prefabs, and deletes them from memory.
+## If you are replacing the old LOREDs, call this before adding new ones.
+static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
+	if loreds_to_kill.is_empty():
+		for lored_key: StringName in LORED.list.keys():
+			loreds_to_kill.append(lored_key)
+	for lored_key: StringName in loreds_to_kill:
+		LORED.fetch(lored_key).kill()
+	LORED.signals.emit_lored_killed()
+
+
+## Removes 
+static func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
+	pass
+
+## Creates a new LORED using the provided parameters and stores him in memory.
+## You must also create a 
+static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
+	pass
+
+
+#endregion
 
 
 #endregion
