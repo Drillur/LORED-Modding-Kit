@@ -18,30 +18,9 @@ var cached_scripts: Dictionary[StringName, Dictionary]
 
 
 func _ready() -> void:
-	_repeatedly_check_if_exporting_self()
-	_create_info_json()
-	_create_lored_data_json()
-
-
-func _repeatedly_check_if_exporting_self() -> void:
-	while true:
-		if ProjectSettings.get_setting("application/config/name") == "LORED":
-			return
-		if _check_if_exporting_self():
-			return
-		await get_tree().create_timer(20.0).timeout
-
-
-func _check_if_exporting_self() -> bool:
-	var config := ConfigFile.new()
-	var error := config.load("res://export_presets.cfg")
-	if error == OK:
-		var text: String = config.encode_to_text()
-		if not text.contains("LORED-Modding-Kit/*"):
-			printerr("Please add LORED-Modding-Kit/* to the excluded files/folders field in your export settings (resource tab).")
-			return false
-		return true
-	return false
+	if Engine.is_editor_hint():
+		_create_info_json()
+		_create_lored_data_json()
 
 
 #endregion
@@ -132,15 +111,16 @@ func emit_mods_loaded() -> void:
 	signals.mods_loaded.emit()
 
 
+func await_mods_loaded() -> void:
+	await signals.mods_loaded
+
+
 #endregion
 
 
 #region LOREDs
 
 
-## Stops specified (or all, if none specified)
-## LOREDs from working, removes their prefabs, and deletes them from memory.
-## If you are replacing the old LOREDs, call this before adding new ones.
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	if loreds_to_kill.is_empty():
 		for lored_key: StringName in LORED.list.keys():
@@ -150,12 +130,10 @@ func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	LORED.signals.emit_lored_killed()
 
 
-## Removes 
 func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
 	pass
 
-## Creates a new LORED using the provided parameters and stores him in memory.
-## You must also create a 
+
 func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
 	pass
 
