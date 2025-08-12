@@ -63,17 +63,12 @@ static func emit_mods_loaded() -> void:
 ## LOREDs from working, removes their prefabs, and deletes them from memory.
 ## If you are replacing the old LOREDs, call this before adding new ones.
 static func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
-	var expression := Expression.new()
-	expression.parse(
-		"if loreds_to_kill.is_empty():
-			for lored_key: StringName in LORED.list.keys():
-				loreds_to_kill.append(lored_key)
-		for lored_key: StringName in loreds_to_kill:
-			LORED.fetch(lored_key).kill()
-		LORED.signals.emit_lored_killed()",
-		["loreds_to_kill"]
-	)
-	expression.execute([loreds_to_kill])
+	if loreds_to_kill.is_empty():
+		for lored_key: StringName in LORED.list.keys():
+			loreds_to_kill.append(lored_key)
+	for lored_key: StringName in loreds_to_kill:
+		LORED.fetch(lored_key).kill()
+	LORED.signals.emit_lored_killed()
 	
 
 
@@ -98,9 +93,7 @@ static func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
 
 ## If appropriate, returns your mod's main.tscn if you pass in your own key.
 static func get_main_scene(key: StringName) -> PackedScene:
-	var expression := Expression.new()
-	expression.parse("Mod.mod_packed_scenes.get(key)", ["key"])
-	return expression.execute([key])
+	return Mod.mod_packed_scenes.get(key)
 
 
 #endregion
