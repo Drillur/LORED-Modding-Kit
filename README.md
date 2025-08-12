@@ -3,7 +3,8 @@ Helpful tools for creating mods for LORED
 
 ## Creating a mod for LORED
 ### Get Started
-1. Assign a `key` for your mod.
+1. Think of `key` for your mod.
+	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
 2. Create a new project with Godot Engine. You will have a nearly-blank `res://` folder.
 3. Copy the `templates > mod` folder into the `res://` folder of your mod.
