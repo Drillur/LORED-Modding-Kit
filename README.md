@@ -9,6 +9,7 @@ Helpful tools for creating mods for LORED
 4. Rename the `mod` folder to match the `key` of your mod.
 5. Fill out `info.json`.
 6. The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16, 32x32, or 8x8. Replace the given icon.png with your mod's icon. Make sure it's named icon.png!
+	Test!
 
 ### Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
