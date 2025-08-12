@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://1gfte13d750r"]
 
-[ext_resource type="Script" uid="uid://bqhyi2o1lcusl" path="res://groups/upgrade/nodes/upgrade_placeholder.gd" id="1_5fi6a"]
+[ext_resource type="Script" uid="uid://bqhyi2o1lcusl" path="res://groups/mod/LORED-Modding-Kit/nodes/Upgrade/upgrade_placeholder.gd" id="1_5fi6a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf2bk"]
 
