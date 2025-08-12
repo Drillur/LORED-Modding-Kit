@@ -9,7 +9,7 @@ func _ready() -> void:
 #region Kit helper functions
 
 
-# NOTE These functions are examples of how to use the helper functions of the
+# NOTE These are examples of how to use the helper functions of the
 # Kit class in LORED. They are designed for modders.
 
 # Feel free to delete this region.
@@ -46,8 +46,8 @@ func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
 	pass
 
-## Creates a new LORED using the provided parameters and stores him in memory.
-## You must also create a 
+
+## Creates a new LORED using the provided parameters and stores them in memory.
 func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
 	pass
 
