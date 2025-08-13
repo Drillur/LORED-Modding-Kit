@@ -34,6 +34,11 @@ func await_mods_loaded() -> void:
 #region Stages
 
 
+## Creates a new Stage using a .json file
+func add_stage(stage_key: StringName, json_path: String) -> void:
+	get_node("/root/Kit").add_stage(stage_key, json_path)
+
+
 ## Removes Stages from the game.
 ## NOTE - Does not affect LOREDs who are kept in memory. Deletes Stage UI and
 ## stats only.
@@ -41,10 +46,20 @@ func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 	get_node("/root/Kit").kill_stages(stages_to_kill)
 
 
+## Must be called once you're done adding Stages and LOREDs
+func refresh_stages() -> void:
+	get_node("/root/Kit").refresh_stages()
+
+
 #endregion
 
 
 #region LOREDs
+
+
+## Creates a new LORED using a .json file
+func add_lored(lored_key: StringName, json_path: String) -> void:
+	get_node("/root/Kit").add_lored(lored_key, json_path)
 
 
 ## Stops specified LOREDs from working, removes their prefabs, and deletes them
@@ -55,11 +70,6 @@ func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 # idk if this actually matters ## NOTE - This should not be called before kill_stages().
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	get_node("/root/Kit").kill_loreds(loreds_to_kill)
-
-
-## Creates a new LORED using the provided parameters and stores them in memory.
-func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
-	pass
 
 
 #endregion

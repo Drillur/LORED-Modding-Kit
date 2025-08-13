@@ -43,7 +43,7 @@ func _create_info_json() -> void:
 	if ResourceLoader.exists(info_json_path):
 		return
 	
-	var file = FileAccess.open(info_json_path, FileAccess.WRITE)
+	var file := FileAccess.open(info_json_path, FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
 	#print(" - Bbcode must not be used in this file.")
 	#print(" - key: The mod's unique identifier. If it conflicts with another mod, it may be overwritten. LORED prepends the author text before the key to help make it more unlikely.")
@@ -78,7 +78,7 @@ func _create_lored_data_json() -> void:
 	if ResourceLoader.exists(lored_template_path):
 		return
 	
-	var file = FileAccess.open(lored_template_path, FileAccess.WRITE)
+	var file := FileAccess.open(lored_template_path, FileAccess.WRITE)
 	file.store_line(JSON.stringify(BASE_DATA, "\t", false))
 	#print(" - Key: The LORED's unique identifier.")
 	#print(" - Title: The LORED's official job title.")
@@ -121,6 +121,20 @@ func await_mods_loaded() -> void:
 #region Stages
 
 
+func add_stage(stage_key: StringName, json_path: String) -> void:
+	print("add_stage()")
+	var file := FileAccess.open(json_path, FileAccess.READ)
+	if not file:
+		print("FileAccess.open failed")
+		return
+	var json_text := file.get_as_text()
+	var json := JSON.new()
+	json.parse(json_text)
+	
+	Stage.data[stage_key] = json.data
+	Stage.new(stage_key)
+
+
 func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 	if stages_to_kill.is_empty():
 		for stage_key: StringName in Stage.list.keys():
@@ -130,10 +144,29 @@ func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 	Stage.signals.stages_changed.emit()
 
 
+func refresh_stages() -> void:
+	Stage.signals.stages_changed.emit()
+
+
 #endregion
 
 
 #region LOREDs
+
+
+func add_lored(lored_key: StringName, json_path: String) -> void:
+	print("add_lored()")
+	var file := FileAccess.open(json_path, FileAccess.READ)
+	if not file:
+		print("FileAccess.open failed")
+		return
+	var json_text := file.get_as_text()
+	var json := JSON.new()
+	json.parse(json_text)
+	
+	LORED.data[lored_key] = json.data
+	LORED.new(lored_key)
+	LOREDContainer.instance._swap_out_lored_placeholders()
 
 
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
@@ -142,11 +175,7 @@ func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 			loreds_to_kill.append(lored_key)
 	for lored_key: StringName in loreds_to_kill:
 		LORED.fetch(lored_key).kill()
-	LORED.signals.emit_lored_killed()
-
-
-func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:
-	pass
+	LORED.signals.lored_killed.emit()
 
 
 #endregion
