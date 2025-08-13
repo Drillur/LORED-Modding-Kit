@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0wif11xmiomh"]
-
-[ext_resource type="Script" uid="uid://cr8lifd3jvmqs" path="res://groups/mod/LORED-Modding-Kit/nodes/lored_modding_kit.gd" id="1_eficu"]
-
-[node name="LOREDModdingKit" type="Node"]
-script = ExtResource("1_eficu")

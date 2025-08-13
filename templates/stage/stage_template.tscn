@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://yr026qq14ile"]
+[gd_scene load_steps=2 format=3 uid="uid://yr026qq14ile"]
 
-[ext_resource type="Theme" uid="uid://bbsyitixspj7m" path="res://DrillurEssentials/themes/Standard.tres" id="1_uqugn"]
 [ext_resource type="PackedScene" uid="uid://chyrd3gf5wlbt" path="res://groups/mod/LORED-Modding-Kit/nodes/LORED/lored_placeholder.tscn" id="2_3at60"]
 
 [node name="StageTemplate" type="MarginContainer"]
@@ -9,7 +8,6 @@ offset_bottom = 768.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-theme = ExtResource("1_uqugn")
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]

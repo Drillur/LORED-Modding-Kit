@@ -20,21 +20,13 @@ func _ready() -> void:
 			stage_is_allowed = true
 	
 	if stage_is_allowed:
-		var parent_node: Node = get_parent()
-		var groups: Array[StringName] = get_groups()
 		var lored_prefab := LOREDPrefab.get_new_prefab()
 		lored_prefab.lored_key = name
-		groups = groups.filter(
-			func(group: StringName) -> bool:
-				return not group.begins_with("_")
-		)
 		
 		await get_owner().ready
 		
 		parent_node.add_child(lored_prefab)
 		get_parent().move_child(lored_prefab, get_index())
-		for group in groups:
-			lored_prefab.add_to_group(group)
 	
 	queue_free()
 	hide()

@@ -2,7 +2,7 @@
 extends Node
 
 
-## The official LORED modding kit
+## A class for useful methods for modders
 
 
 const PATH: String = "res://groups/mod/LORED-Modding-Kit/"
@@ -118,6 +118,21 @@ func await_mods_loaded() -> void:
 #endregion
 
 
+#region Stages
+
+
+func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
+	if stages_to_kill.is_empty():
+		for stage_key: StringName in Stage.list.keys():
+			stages_to_kill.append(stage_key)
+	for stage_key: StringName in stages_to_kill:
+		Stage.fetch(stage_key).kill()
+	Stage.signals.stages_changed.emit()
+
+
+#endregion
+
+
 #region LOREDs
 
 
@@ -128,10 +143,6 @@ func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	for lored_key: StringName in loreds_to_kill:
 		LORED.fetch(lored_key).kill()
 	LORED.signals.emit_lored_killed()
-
-
-func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
-	pass
 
 
 func add_lored(_lored_key: StringName, _lored_data: JSON) -> void:

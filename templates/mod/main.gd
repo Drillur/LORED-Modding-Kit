@@ -31,20 +31,30 @@ func await_mods_loaded() -> void:
 #endregion
 
 
+#region Stages
+
+
+## Removes Stages from the game.
+## NOTE - Does not affect LOREDs who are kept in memory. Deletes Stage UI and
+## stats only.
+func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_stages(stages_to_kill)
+
+
+#endregion
+
+
 #region LOREDs
 
 
-## Stops specified LOREDs from working, removes their prefabs, and deletes them from memory.
-## If you are replacing the old LOREDs, call this before adding new ones.
+## Stops specified LOREDs from working, removes their prefabs, and deletes them
+## from memory. If you are replacing the old LOREDs, call this before adding new
+## ones. Murdered LOREDs cannot be resurrected.
 ## NOTE - If `loreds_to_kill` is empty, it will kill every LORED, including
 ## ones added from other mods.
+# idk if this actually matters ## NOTE - This should not be called before kill_stages().
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	get_node("/root/Kit").kill_loreds(loreds_to_kill)
-
-
-## Removes 
-func kill_stages(_stages_to_kill: Array[StringName] = []) -> void:
-	pass
 
 
 ## Creates a new LORED using the provided parameters and stores them in memory.
