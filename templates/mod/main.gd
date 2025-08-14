@@ -15,6 +15,31 @@ func _ready() -> void:
 # Feel free to delete this region.
 
 
+#region Examples
+
+
+func remove_everything() -> void:
+	kill_loreds()
+	kill_stages()
+
+
+## Unchanged, this won't work if you call it
+func add_custom_stages_and_new_loreds() -> void:
+	remove_everything()
+	
+	add_stage(&"new_stage_key", "path_to_stage.json")
+	
+	add_lored(&"schlonky", "res://mod_name/loreds/schlonky_data.json")
+	add_lored(&"wonky", "res://mod_name/loreds/wonky_data.json")
+	add_lored(&"fronky", "res://mod_name/loreds/fronky_data.json")
+	add_lored(&"scronky", "res://mod_name/loreds/scronky_data.json")
+	
+	refresh_stages()
+
+
+#endregion
+
+
 #region Control
 
 
@@ -57,7 +82,9 @@ func refresh_stages() -> void:
 #region LOREDs
 
 
-## Creates a new LORED using a .json file
+## Creates a new LORED using a .json file and stores them in memory. This will
+## NOT create a LOREDPrefab. You must create a Stage scene and place LORED
+## placeholder nodes in them. Refer to stage_templace.tscn for help :D
 func add_lored(lored_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_lored(lored_key, json_path)
 

@@ -7,17 +7,10 @@ extends Panel
 
 func _ready() -> void:
 	var stage_key: StringName = Upgrade.fetch(name).stage.key
-	var stage_is_allowed: bool = false
+	var stage_is_allowed: bool = true
 	
-	match stage_key:
-		&"main2":
-			stage_is_allowed = Main.STAGE_2_ENABLED
-		&"main3":
-			stage_is_allowed = Main.STAGE_3_ENABLED
-		&"main4":
-			stage_is_allowed = Main.STAGE_4_ENABLED
-		_:
-			stage_is_allowed = true
+	if Stage.STAGES_UNAVAILABLE_IN_DEMO.has(stage_key) and Main.DEMO:
+		stage_is_allowed = false
 	
 	if stage_is_allowed:
 		var parent_node: Node = get_parent()

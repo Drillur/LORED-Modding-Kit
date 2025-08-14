@@ -4,5 +4,6 @@
 	"display name": "ModName",
 	"description": "short_summary_of_mods_effects",
 	"color": "#hex_color_for_your_mod",
-	"affects save": false
+	
+	"loreds which should not be loaded when the game boots": "all",
 }

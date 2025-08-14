@@ -141,7 +141,7 @@ func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 			stages_to_kill.append(stage_key)
 	for stage_key: StringName in stages_to_kill:
 		Stage.fetch(stage_key).kill()
-	Stage.signals.stages_changed.emit()
+	refresh_stages()
 
 
 func refresh_stages() -> void:
@@ -166,7 +166,6 @@ func add_lored(lored_key: StringName, json_path: String) -> void:
 	
 	LORED.data[lored_key] = json.data
 	LORED.new(lored_key)
-	LOREDContainer.instance._swap_out_lored_placeholders()
 
 
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
