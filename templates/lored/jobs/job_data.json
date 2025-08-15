@@ -1,0 +1,12 @@
+{
+	"Name": "Toast",
+	"Status Text": "Toasting!",
+	"Sprite Frames Path": "res://groups/lored/loreds/stage 1/iron/animation/iron.tres",
+	"Fallback Animation LORED Key": "wire",
+	"Output": "1 iron",
+	"Input": "1 coal, 1 iron_ore",
+	"Base Duration": 5,
+	"Log Rates": true,
+	"Modulate Animation": false,
+	"Flip Animation Horizontally": false
+}
