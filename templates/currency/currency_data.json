@@ -1,0 +1,12 @@
+{
+	"Name": "Malignancy",
+	"Plural Name": "Malignancy",
+	"Icon": "malignancy",
+	"Color": "#e01f59",
+	"Stage": "main1",
+	"Currency Window Folder": "Top",
+	"Offline Eligible": true,
+	"Persist": 1,
+	"Starting Amount": 0,
+	"Reset Amount": 10
+}

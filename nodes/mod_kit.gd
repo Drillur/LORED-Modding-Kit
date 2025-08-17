@@ -34,6 +34,20 @@ func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
 	Currency.add(currency_key, amount)
 
 
+func add_currency(currency_key: StringName, json_path: String) -> void:
+	print("add_currency(%s, %s)" % [currency_key, json_path])
+	var file := FileAccess.open(json_path, FileAccess.READ)
+	if not file:
+		print(" - FileAccess.open failed")
+		return
+	var json_text := file.get_as_text()
+	var json := JSON.new()
+	json.parse(json_text)
+	
+	Currency.data[currency_key] = json.data
+	Currency.new(currency_key)
+
+
 func reset_currencies() -> void:
 	for currency: Currency in Currency.list.values():
 		currency.reset(10)

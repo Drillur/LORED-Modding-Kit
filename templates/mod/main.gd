@@ -85,6 +85,12 @@ func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
 	get_node("/root/Kit").currency_add_amount(currency_key, amount)
 
 
+## Creates a new Currency and stores it in memory. Must be called after its
+## Stage has been created (if using a base Stage, you're safe)
+func add_currency(currency_key: StringName, json_path: String) -> void:
+	get_node("/root/Kit").add_currency(currency_key, json_path)
+
+
 ## Does not *kill* currencies; only resets them all to their `starting_amount`
 func reset_currencies() -> void:
 	get_node("/root/Kit").reset_currencies()
@@ -97,7 +103,7 @@ func reset_currencies() -> void:
 
 
 ## Creates a Job using a .json file and stores it in memory for any LORED to use
-## Jobs **must** be added before adding LOREDs.
+## Jobs must be added before adding LOREDs which use them.
 func add_job(job_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_job(job_key, json_path)
 
