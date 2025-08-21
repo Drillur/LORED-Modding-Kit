@@ -25,7 +25,7 @@ mouse_filter = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="malignancy" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["lored_placeholder"]]
+[node name="malignancy" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -40,14 +40,14 @@ mouse_filter = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="tarball" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" groups=["lored_placeholder"]]
+[node name="tarball" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="growth" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" groups=["lored_placeholder"]]
+[node name="growth" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -66,21 +66,21 @@ mouse_filter = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="oil" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer" groups=["lored_placeholder"]]
+[node name="oil" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="concrete" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer" groups=["lored_placeholder"]]
+[node name="concrete" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="joule" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer" groups=["lored_placeholder"]]
+[node name="joule" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -97,14 +97,14 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="iron" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer" groups=["lored_placeholder"]]
+[node name="iron" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="copper" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer" groups=["lored_placeholder"]]
+[node name="copper" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -116,14 +116,14 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 32
 
-[node name="iron_ore" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer2" groups=["lored_placeholder"]]
+[node name="iron_ore" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer2"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="copper_ore" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer2" groups=["lored_placeholder"]]
+[node name="copper_ore" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer2"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -136,14 +136,14 @@ mouse_filter = 2
 theme_override_constants/separation = 32
 alignment = 2
 
-[node name="coal" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer3" groups=["lored_placeholder"]]
+[node name="coal" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer3"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_mf2bk")
 
-[node name="stone" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer3" groups=["lored_placeholder"]]
+[node name="stone" type="Panel" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer3"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 4

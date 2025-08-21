@@ -1,0 +1,15 @@
+{
+	"Name": "Malignant Upgrades",
+	"Icon": "tree 1b",
+	"Color": "#e01f59",
+	"Stage": "main1",
+	"Persist": 1,
+	"Prestige Name": "Metastasize",
+	"Prestige Noun": "Metastasis",
+	"Prestige Past Verb": "Metastasized",
+	"Prestige Present Verb": "Metastasize",
+	"Requires Prestige to Apply": true,
+	"Prestige Order": 1,
+	"Upgrade Container Shortcut": "E",
+	"Path": "uid://bx7oqfpwl1p3r"
+}

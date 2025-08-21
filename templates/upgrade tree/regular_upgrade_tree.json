@@ -1,0 +1,11 @@
+{
+	"Name": "Firestarter Upgrades",
+	"Icon": "tree 1a",
+	"Color": "#ffbf00",
+	"Stage": "main1",
+	"Persist": 0,
+	"Requires Prestige to Apply": false,
+	"Prestige Order": 4,
+	"Upgrade Container Shortcut": "Q",
+	"Path": "uid://p473poqrgkdm"
+}

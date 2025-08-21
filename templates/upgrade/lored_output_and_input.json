@@ -1,0 +1,17 @@
+{
+	"Name": "I've lost my stuff.",
+	"Class": "Upgrade",
+	"Hide When Locked": true,
+	"Required Upgrade": "unlock_joule",
+	"Tree": "1a",
+	"Persist": 0,
+	"Icon": "joule",
+	"Color": "joule",
+	"Price": "100 concrete",
+	"Price Increase": 2.5,
+	"Purchase Limit": 6,
+	"Affected Object": "lored joule",
+	"Effect": "xput x6",
+	"Effect Text": "Output and Input [b]xEffectText[/b]NEWLINE[i]for [/i]{name lored joule}",
+	"Toggleable": false
+}

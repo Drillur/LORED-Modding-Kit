@@ -1,4 +1,9 @@
+class_name MyMod
 extends Node
+
+
+## The string identifier of your mod. Access it with MyMod.key, or delete it
+static var key: String = "mod_name"
 
 
 #region Your Mod
@@ -35,6 +40,8 @@ func _on_mods_loaded() -> void:
 func kill_all() -> void:
 	kill_loreds()
 	kill_stages()
+	kill_upgrades()
+	kill_upgrade_trees()
 
 
 ## Unchanged, this won't work if you call it
@@ -43,10 +50,10 @@ func add_custom_stages_and_new_loreds() -> void:
 	
 	add_stage(&"new_stage_key", "path_to_stage.json")
 	
-	add_job(&"custom_job", "res://mod_name/loreds/jobs/custom_job.json")
+	add_job(&"custom_job", "res://%s/loreds/jobs/custom_job.json" % key)
 	
-	add_lored(&"schlonky", "res://mod_name/loreds/schlonky_data.json")
-	add_lored(&"scronky", "res://mod_name/loreds/scronky_data.json")
+	add_lored(&"schlonky", "res://%s/loreds/schlonky_data.json" % key)
+	add_lored(&"scronky", "res://%s/loreds/scronky_data.json" % key)
 	
 	refresh_stages()
 
@@ -115,12 +122,8 @@ func add_lored(lored_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_lored(lored_key, json_path)
 
 
-## Stops specified LOREDs from working, removes their prefabs, and deletes them
-## from memory. If you are replacing the old LOREDs, call this before adding new
-## ones. Murdered LOREDs cannot be resurrected.
-## NOTE - If `loreds_to_kill` is empty, it will kill every LORED, including
-## ones added from other mods.
-# idk if this actually matters ## NOTE - This should not be called before kill_stages().
+## Removes LOREDs from memory by their keys. If `loreds_to_kill` is empty,
+## it will kill every LORED. Murdered LOREDs cannot be resurrected.
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 	get_node("/root/Kit").kill_loreds(loreds_to_kill)
 
@@ -141,9 +144,8 @@ func add_stage(stage_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_stage(stage_key, json_path)
 
 
-## Removes Stages from the game.
-## NOTE - Does not affect LOREDs who are kept in memory. Deletes Stage UI and
-## stats only.
+## Removes Stages from memory by their keys. Does not affect LOREDs who are
+## kept in memory. Deletes Stage UI and stats only.
 func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 	get_node("/root/Kit").kill_stages(stages_to_kill)
 
@@ -164,10 +166,46 @@ func reset_stages() -> void:
 #region Upgrades
 
 
+## Stores a new Upgrade in memory by a key and a path to the json containing the
+## Upgrade's data
+func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
+	get_node("/root/Kit").add_upgrade(upgrade_key, json_path)
+
+
+## Remove Upgrades from memory by their keys. If `upgrades_to_kill` is empty,
+## all Upgrades will be killed
+func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_upgrades(upgrades_to_kill)
+
+
 ## Sets all Upgrades in memory to unpurchased
 ## (except `unlock_upgrades` which unlocks the Upgrades window)
 func reset_upgrades() -> void:
 	get_node("/root/Kit").reset_upgrades()
+
+
+#endregion
+
+
+#region Upgrade Trees
+
+
+## Stores a new Upgrade Tree in memory by a key and a path to the json
+## containing the Upgrade Tree's data
+func add_upgrade_tree(tree_key: StringName, json_path: String) -> void:
+	get_node("/root/Kit").add_upgrade_tree(tree_key, json_path)
+
+
+## This will scan all Upgrade Tree scenes for nodes which must be replaced with
+## Upgrade Nodes. This should be called once all Tree and Upgrades are added
+func refresh_trees() -> void:
+	get_node("/root/Kit").refresh_trees()
+
+
+## Remove Upgrade Trees from memory by their keys. If `trees_to_kill` is empty,
+## all Upgrade Trees will be killed
+func kill_upgrade_trees(trees_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_upgrade_trees(trees_to_kill)
 
 
 #endregion
