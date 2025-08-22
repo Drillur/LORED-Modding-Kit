@@ -1,10 +1,8 @@
 # LORED Modding Kit
-Helpful tools for creating mods for LORED
+Helpful tools for creating mods for LORED :D
 
-## Creating a mod for LORED
-Creating mods for LORED is easy! Copy the `templates > mod` folder into a Godot project, export it as a zip, and put it into the LORED Mods folder!
-
-### Get Started
+## Quickstart
+Copy the `templates > mod` folder into a Godot project, export the project as a zip, and put it into the LORED `mods` folder!
 1. Think of `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
