@@ -37,11 +37,14 @@ func _on_mods_loaded() -> void:
 #region Examples
 
 
+## Results in a blank slate of a game, allowing you to fill it with entirely
+## custom LOREDs, currencies, Stages, and Upgrades
 func kill_all() -> void:
 	kill_loreds()
 	kill_stages()
 	kill_upgrades()
 	kill_upgrade_trees()
+	kill_currencies()
 
 
 ## Unchanged, this won't work if you call it
@@ -98,15 +101,21 @@ func add_currency(currency_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_currency(currency_key, json_path)
 
 
-## Does not *kill* currencies; only resets them all to their `starting_amount`
+## Resets the amount, rate, and pending values of all Currencies
 func reset_currencies() -> void:
 	get_node("/root/Kit").reset_currencies()
+
+
+## Remove Currencies from memory by their keys. If `currencies_to_kill` is
+## empty, all Currencies will be killed
+func kill_currencies(currencies_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_currencies(currencies_to_kill)
 
 
 #endregion
 
 
-#region LOREDs
+#region LORED
 
 
 ## Creates a Job using a .json file and stores it in memory for any LORED to use
@@ -136,7 +145,7 @@ func reset_loreds() -> void:
 #endregion
 
 
-#region Stages
+#region Stage
 
 
 ## Creates a new Stage using a .json file
@@ -163,7 +172,7 @@ func reset_stages() -> void:
 #endregion
 
 
-#region Upgrades
+#region Upgrade
 
 
 ## Stores a new Upgrade in memory by a key and a path to the json containing the
@@ -172,22 +181,22 @@ func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_upgrade(upgrade_key, json_path)
 
 
-## Remove Upgrades from memory by their keys. If `upgrades_to_kill` is empty,
-## all Upgrades will be killed
-func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
-	get_node("/root/Kit").kill_upgrades(upgrades_to_kill)
-
-
 ## Sets all Upgrades in memory to unpurchased
 ## (except `unlock_upgrades` which unlocks the Upgrades window)
 func reset_upgrades() -> void:
 	get_node("/root/Kit").reset_upgrades()
 
 
+## Remove Upgrades from memory by their keys. If `upgrades_to_kill` is empty,
+## all Upgrades will be killed
+func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_upgrades(upgrades_to_kill)
+
+
 #endregion
 
 
-#region Upgrade Trees
+#region Upgrade Tree
 
 
 ## Stores a new Upgrade Tree in memory by a key and a path to the json

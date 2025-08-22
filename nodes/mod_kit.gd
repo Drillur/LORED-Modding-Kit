@@ -53,10 +53,19 @@ func reset_currencies() -> void:
 		currency.reset(10)
 
 
+func kill_currencies(currencies_to_kill: Array[StringName] = []) -> void:
+	Log.pr(kill_currencies, currencies_to_kill)
+	if currencies_to_kill.is_empty():
+		for currency_key: StringName in Currency.list.keys():
+			currencies_to_kill.append(currency_key)
+	for currency_key: StringName in currencies_to_kill:
+		Currency.fetch(currency_key).kill()
+
+
 #endregion
 
 
-#region LOREDs
+#region LORED
 
 
 func add_job(job_key: StringName, json_path: String) -> void:
@@ -104,7 +113,7 @@ func reset_loreds() -> void:
 #endregion
 
 
-#region Stages
+#region Stage
 
 
 func add_stage(stage_key: StringName, json_path: String) -> void:
@@ -143,7 +152,7 @@ func reset_stages() -> void:
 #endregion
 
 
-#region Upgrades
+#region Upgrade
 
 
 func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
@@ -169,8 +178,8 @@ func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
 	if upgrades_to_kill.is_empty():
 		for upgrade_key: StringName in Upgrade.list.keys():
 			upgrades_to_kill.append(upgrade_key)
-	for upgrades_key: StringName in upgrades_to_kill:
-		Upgrade.fetch(upgrades_key).kill()
+	for upgrade_key: StringName in upgrades_to_kill:
+		Upgrade.fetch(upgrade_key).kill()
 
 
 func reset_upgrades() -> void:
@@ -183,7 +192,7 @@ func reset_upgrades() -> void:
 #endregion
 
 
-#region Upgrade Trees
+#region Upgrade Tree
 
 
 func add_upgrade_tree(tree_key: StringName, json_path: String) -> void:

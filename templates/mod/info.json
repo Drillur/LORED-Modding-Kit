@@ -3,7 +3,5 @@
 	"author": "your_username",
 	"display name": "ModName",
 	"description": "short_summary_of_mods_effects",
-	"color": "#hex_color_for_your_mod",
-	
-	"loreds which should not be loaded when the game boots": "",
+	"color": "#hex_color_for_your_mod"
 }

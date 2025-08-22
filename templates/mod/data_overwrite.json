@@ -1,0 +1,63 @@
+{
+	"Currencies": {
+		"coal": {
+			"Persist": 4,
+			"Reset Amount": 5000
+		}
+	},
+	"Emotes": {
+		"stone24": {
+			"Text": "This one has a FREAKY-FREAKIN-DEAKY edge!"
+		}
+	},
+	"Hands": {
+		"TWO_PAIR": {
+			"Duration in Recent Hands": 20000000
+		},
+		"THREE_OF_A_KIND": {
+			"Name": "Four of a Kind"
+		},
+		"FOUR_OF_A_KIND": {
+			"Name": "Three of a Kind"
+		}
+	},
+	"Jobs": {
+		"stone": {
+			"Base Duration": 0.05
+		},
+		"iron_ore": {
+			"Input": ""
+		},
+		"copper_ore": {
+			"Output": "2 copper_ore"
+		}
+	},
+	"LOREDs": {
+		"concrete": {
+			"Title": "Kronkete",
+			"Name": "Kronk"
+		},
+		"malignancy": {
+			"Price Increase": 1.25
+		},
+		"gem": {
+			"Price": "0.001 dollar"
+		}
+	},
+	"Upgrades": {
+		"grinder": {
+			"Persist": 4
+		},
+		"unlock_iron_ore": {
+			"Price": ""
+		},
+		"texas": {
+			"Effect": "haste x5000"
+		}
+	},
+	"UpgradeTrees": {
+		"1b": {
+			"Requires Prestige to Apply": false
+		}
+	}
+}
