@@ -17,26 +17,26 @@ Creating mods for LORED is easy! Copy the `templates > mod` folder into a Godot 
 	- svg files are also supported
 	- The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16, 32x32, or 8x8.
 
-### Creating Custom LOREDs
+# Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
 If you want to get real crazy, you can replace the Class field of that file with your own script which extends LORED.
 
 ## "Jobs" vs "Primary Jobs"
 Under "Jobs", list every Job the LORED will be able to perform.
 "Primary Jobs" is used for rate calculations.
-	- If a LORED only has one currency he attempts to collect but with multiple Jobs to achieve it, list the preferred Job only
-	- If a LORED does have two currencies he makes with multiple jobs, list all of those Jobs here as well.
+- If a LORED only has one currency he attempts to collect but with multiple Jobs to achieve it, list the preferred Job only
+- If a LORED does have two currencies he makes with multiple jobs, list all of those Jobs here as well.
 
-### Creating Custom Upgrades
-`tmplates > upgrade` has a few example Upgrades to get you started.
+# Creating Custom Upgrades
+`templates > upgrade` has a few example Upgrades to get you started.
+If you wish to achieve something more unique than what the combination of the "Effect" and "Affected Object" fields can achieve, create your own Upgrade class which extends Upgrade and write your own code.
 
 ## "Effect" and "Affected Object"
 Affected Objects
 	- The first word is typically the category, and the second will be the object's key. If you want an Upgrade to affect Will the Iron LORED, you would write "lored iron"
 
-Here I will list every possible way you can enter something in these fields. If you wish to achieve something more unique, create your own Upgrade class which extends Upgrade and write your own code.
-
+Below is a list of `Affected Objects` which you may use.
 - "lored coal" - This would affect the Coal LORED.
-	- In-game example: The `unlock_coal` Upgrade's 
+	- In-game example: The `unlock_coal` Upgrade determines whether the Coal LORED is unlocked or not. Its `Affected Object` is "lored coal" and its `Effect` is "unlock"
 - "lored main1" - `main1` is the key for Stage 1 in the base game. This affects all Stage 1 LOREDs.
 - "tree 1a" - 
