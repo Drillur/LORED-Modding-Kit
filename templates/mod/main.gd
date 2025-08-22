@@ -14,7 +14,7 @@ func _ready() -> void:
 	get_node("/root/Kit").signals.mods_loaded.connect(_on_mods_loaded)
 
 
-## Called when all mods finish loading in. This is where you should write your code!
+## Called when all LORED mods finish loading in
 func _on_mods_loaded() -> void:
 	pass
 
@@ -153,12 +153,6 @@ func add_stage(stage_key: StringName, json_path: String) -> void:
 	get_node("/root/Kit").add_stage(stage_key, json_path)
 
 
-## Removes Stages from memory by their keys. Does not affect LOREDs who are
-## kept in memory. Deletes Stage UI and stats only.
-func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
-	get_node("/root/Kit").kill_stages(stages_to_kill)
-
-
 ## Must be called once you're done adding Stages and LOREDs
 func refresh_stages() -> void:
 	get_node("/root/Kit").refresh_stages()
@@ -167,6 +161,12 @@ func refresh_stages() -> void:
 ## Resets the statistics of every Stage in memory
 func reset_stages() -> void:
 	get_node("/root/Kit").reset_stages()
+
+
+## Removes Stages from memory by their keys. Does not affect LOREDs who are
+## kept in memory. Deletes Stage UI and stats only.
+func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
+	get_node("/root/Kit").kill_stages(stages_to_kill)
 
 
 #endregion

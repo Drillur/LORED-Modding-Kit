@@ -169,8 +169,6 @@ func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	
 	Upgrade.data[upgrade_key] = json.data
 	Upgrade.new(upgrade_key)
-	
-	UpgradeTree.setup_upgrade_count()
 
 
 func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
