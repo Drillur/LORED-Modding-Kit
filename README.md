@@ -46,11 +46,13 @@ Below is a list of `Affected Objects` with examples from the base game.
 	- `grr_im_mad` increases Maximum Enraged Duration. `Effect`: "max_duration +1"
 - "lored iron, lored copper" - An example where the Upgrade applies to two objects (the Iron LORED and the Copper LORED).
 	- `its_growin_on_me` multiplies the Maximum Output of both of those two LOREDs. `Effect`: "max_output x1"
-	- This Upgrade has a unique Class: ItsGrowinOnMe, which extends Upgrade. Take a look at its _init function:
+	- This Upgrade has a unique Class: ItsGrowinOnMe, which extends Upgrade. Take a look at its _init function below. It still makes use of its `Affected Objects` and `Effect` entries by calling super(), and then it goes on to specify further shit.
 		```
+		class_name ItsGrowinOnMe extends Upgrade
 		func _init(_key: StringName) -> void:
-			growth = LORED.fetch("growth")
 			await super(_key)
+			...
 		```
+		Calling super() is still necessary in cases where neither of these entries are used at all in order to set up its icon and other details.
 - "stage main1" - "stage" is the category for Stages, and "main1" is the key for Stage 1 in the base game.
 	- 
