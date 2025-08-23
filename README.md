@@ -36,7 +36,7 @@ Under `Jobs`, list every Job the LORED will be able to perform.
 If you wish to achieve something more unique than what the combination of the `Effect` and `Affected Object` fields can achieve, create your own Upgrade class which extends Upgrade and write your own code.
 
 ## "Effect" and "Affected Object"
-If you wanted to create an Upgrade which affected Output, Input, Output and Input, or Haste, making use of `Affected Objects` and `Effect` will save you a lot of effort!
+If you wanted to create an Upgrade which affected Output, Input, Output and Input, or Haste, making use of `Affected Objects` and `Effect` will save you a lot of effort! I already put in the hours for many common Upgrade effects--don't put in the same hours for the same effects!
 
 `Affected Objects`
 - The first word is typically the category, and the second will be the object's key, the two separated by a space. If you want an Upgrade to affect Will the Iron LORED, you would write "lored iron"
