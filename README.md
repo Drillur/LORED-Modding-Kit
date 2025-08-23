@@ -1,5 +1,6 @@
 # LORED Modding Kit
 Helpful tools for creating mods for LORED :D
+Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
 Copy the `templates > mod` folder into a Godot project, export the project as a zip, and put it into the LORED `mods` folder!
@@ -30,7 +31,6 @@ Under `Jobs`, list every Job the LORED will be able to perform.
 If you wish to achieve something more unique than what the combination of the `Effect` and `Affected Object` fields can achieve, create your own Upgrade class which extends Upgrade and write your own code.
 
 ## "Effect" and "Affected Object"
-You don't have to read all this crap at once! Refer to it as you have questions, or somethin.
 `Affected Objects`
 - The first word is typically the category, and the second will be the object's key, the two separated by a space. If you want an Upgrade to affect Will the Iron LORED, you would write "lored iron"
 `Effect`
