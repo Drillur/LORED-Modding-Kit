@@ -1,19 +1,20 @@
 # LORED Modding Kit
 Helpful tools for creating mods for LORED :D
+
 Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
-Copy the `templates > mod` folder into a Godot project, export the project as a zip, and put it into the LORED `mods` folder!
-1. Think of `key` for your mod.
+1. Copy the `templates > mod` folder into a Godot project, export the project as a zip, and put it into the LORED `mods` folder!
+2. Think of `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
-2. Create a new project with Godot Engine. You will have a nearly-blank `res://` folder.
-3. Copy the `templates > mod` folder into the `res://` folder of your mod.
+3. Create a new project with Godot Engine. You will have a nearly-blank `res://` folder.
+4. Copy the `templates > mod` folder into the `res://` folder of your mod.
 	- The `mod` folder has all of the required files that LORED will look for.
-4. Rename the `mod` folder to match your mod's `key`.
-5. Fill out `info.json`.
+5. Rename the `mod` folder to match your mod's `key`.
+6. Fill out `info.json`.
 	- Do not use any bbcode in json files!
-6. Add your own `icon.png` or `icon.svg`.
+7. Add your own `icon.png` or `icon.svg`.
 	- The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16 (best if you're not a pixel art gawd), 32x32 (best if you're a pixel art gawd), or 8x8 (not the best in any way). Or 4x4 (huh?).
 
 # Creating Custom LOREDs
