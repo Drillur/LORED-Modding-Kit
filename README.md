@@ -17,6 +17,7 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 7. Add your own `icon.png` or `icon.svg`.
 	- The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16 (best if you're not a pixel art gawd), 32x32 (best if you're a pixel art gawd), or 8x8 (not the best in any way). Or 4x4 (huh?).
 
+
 # Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
 
@@ -28,6 +29,7 @@ Under `Jobs`, list every Job the LORED will be able to perform.
 `Primary Jobs` is used for rate calculations.
 - If a LORED only has one currency he attempts to collect but with multiple Jobs to achieve it, list the preferred Job only
 - If a LORED does have two currencies he makes with multiple jobs, list all of those Jobs here as well.
+
 
 # Creating Custom Upgrades
 `templates > upgrade` has a few example Upgrades to get you started.
