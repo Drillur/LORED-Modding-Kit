@@ -70,3 +70,5 @@ Below is a list of `Affected Objects` with examples from the base game.
 - "currency coin" - "currency" is the category for Currencies, and "coin" is the key for Coin.
 	- `ADVANTAGE_COIN` grants passive income for Coin per second. `Effect`: "passive_gain +0"
 	- This Upgrade has a unique Class: PassiveGain, which extends Upgrade.
+- "thingies" - This category affects anything related to Thingies.
+	- `DOUBLE_DIP` adds 1 to Crit Rolls for all Thingies. `Effect`: "crit_rolls +1"
