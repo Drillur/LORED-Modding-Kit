@@ -4,7 +4,7 @@ Helpful tools for creating mods for LORED :D
 Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
-1. Copy the `templates > mod` folder into a Godot project, export the project as a zip, and put it into the LORED `mods` folder!
+1. Copy the `templates > mod` folder into a Godot project.
 2. Think of `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
@@ -16,6 +16,10 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 	- Do not use any bbcode in json files!
 7. Add your own `icon.png` or `icon.svg`.
 	- The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16 (best if you're not a pixel art gawd), 32x32 (best if you're a pixel art gawd), or 8x8 (not the best in any way). Or 4x4 (huh?).
+8. Export the project as a PCK/Zip (it should zip it up!).
+9. Put the \zip into the LORED `mods` folder!
+	- Windows: `%USERPROFILE%/AppData/Roaming/Godot/app_userdata/LORED/mods/`
+	- Linux: `~/.local/share/godot/app_userdata/LORED/mods/`
 
 
 # Creating Custom LOREDs
@@ -48,7 +52,7 @@ If you wanted to create an Upgrade which affected Output, Input, Output and Inpu
 - As for _multiplicative_ Upgrades which have a x or / in the second word (e.g. "x2"), you write what you want the final value to be, and the game will calculate what the effect will be at each level.
 	- For example, if you want an Upgrade with 5 purchase levels to multiply Output by 10, you would write "output x10". The game will run `value ** (1.0 / times_purchased.get_total())` (value being 10 in this example, and total times_purchased being 5), resulting in 10 ^ (1 / 5) = 1.58. That means that each level will multiply Output by 1.58, resulting in 10 after 5 purchases.
 
-Below is a list of real examples from the base game on how these two fields are used.
+Below is a list of the most common `Affected Objects` values with real examples from the base game and what they do.
 - "lored coal" - "lored" is the category, and "coal" is the key of the Coal LORED. So, this Upgrade would affect the Coal LORED in some way.
 	- The `unlock_coal` Upgrade determines whether the Coal LORED is unlocked or not. `Effect`: "unlock"
 - "lored main1" - "main1" is the key for Stage 1 in the base game. This would affect all Stage 1 LOREDs.
