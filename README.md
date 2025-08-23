@@ -13,14 +13,13 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 	- The `mod` folder has all of the required files that LORED will look for.
 5. Rename the `mod` folder to match your mod's `key`.
 6. Fill out `info.json`.
-	- Do not use any bbcode in json files!
-7. Add your own `icon.png` or `icon.svg`.
-	- The icons for mods will be displayed in LORED at 32x32. It is recommended to make an icon with the resolution of 16x16 (best if you're not a pixel art gawd), 32x32 (best if you're a pixel art gawd), or 8x8 (not the best in any way). Or 4x4 (huh?).
+	- Do not use any bbcode in json files. It will be stripped from the text and could result in errors.
+7. Add an `icon.png` or `icon.svg` representing your mod.
+	- 16x16 is the recommended resolution for this icon. It will be displayed in-game at 32x32.
 8. Export the project as a PCK/Zip (it should zip it up!).
-9. Put the \zip into the LORED `mods` folder!
+9. Put the zip into the LORED `mods` folder.
 	- Windows: `%USERPROFILE%/AppData/Roaming/Godot/app_userdata/LORED/mods/`
 	- Linux: `~/.local/share/godot/app_userdata/LORED/mods/`
-
 
 # Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
