@@ -40,19 +40,20 @@ If you wish to achieve something more unique than what the combination of the `E
 - The first word is typically the category, and the second will be the object's key, the two separated by a space. If you want an Upgrade to affect Will the Iron LORED, you would write "lored iron"
 
 `Effect`
-- This depends on the first word written in `Affected Objects`, and it specifies what will happen to those affected objects.
+- This depends on the first word written in `Affected Objects`, and it specifies what will happen to those affected objects. If you want an Upgrade to multiply Schlonky the Honkydonky LORED's Haste by 1,000, you would write "lored schlonky" for the `Affected Objects` and "haste x1000" for the `Effect`.
 
-Below is a list of `Affected Objects` with examples from the base game.
-- "lored coal" - This would affect the Coal LORED.
+For _additive_ Upgrades which have a + or - in the second word (e.g. "+1"), you would write how much they increase per level.
+- For example, if you want an Upgrade with 5 purchase levels to increase Output by +10 (base), you would write "output +2". It will increase by 2 each purchase, resulting in +10.
+As for _multiplicative_ Upgrades which have a x or / in the second word (e.g. "x2"), you write what you want the final value to be, and the game will calculate what the effect will be at each level.
+- For example, if you want an Upgrade with 5 purchase levels to multiply Output by 10, you would write "output x10". The game will run `value ** (1.0 / times_purchased.get_total())` (value being 10 in this example, and total times_purchased being 5), resulting in 10 ^ (1 / 5) = 1.58. That means that each level will multiply Output by 1.58, resulting in 10 after 5 purchases.
+
+Below is a list of real examples from the base game on how these two fields are used.
+- "lored coal" - "lored" is the category, and "coal" is the key of the Coal LORED. So, this Upgrade would affect the Coal LORED in some way.
 	- The `unlock_coal` Upgrade determines whether the Coal LORED is unlocked or not. `Effect`: "unlock"
 - "lored main1" - "main1" is the key for Stage 1 in the base game. This would affect all Stage 1 LOREDs.
 	- `how_is_this_an_rpg` adds +10% Crit Chance to every Stage 1 LORED. `Effect`: "crit_chance +10"
 - "lored all" - This would affect all LOREDs.
 	- `lucky_crit2` adds a total of 5% Lucky Crit to every LORED. `Effect`: "lucky_crit +1"
-	- For _additive_ Upgrades which have a + or - in the second word (e.g. "+1"), you would write how much they increase per level.
-		- For example, if you want an Upgrade with 5 purchase levels to increase Output by +10 (base), you would write "output +2". It will increase by 2 each purchase, resulting in +10.
-	- As for _multiplicative_ Upgrades which have a x or / in the second word (e.g. "x2"), you write what you want the final value to be, and the game will calculate what the effect will be at each level.
-		- For example, if you want an Upgrade with 5 purchase levels to multiply Output by 10, you would write "output x10". The game will run `value ** (1.0 / times_purchased.get_total())` (value being 10 in this example, and total times_purchased being 5), resulting in 10 ^ (1 / 5) = 1.58. That means that each level will multiply Output by 1.58, resulting in 10 after 5 purchases.
 - "tree 1a" - "tree" is the category for Upgrade Trees, and "1a" is the key for the Firestarter Upgrades in the base game.
 	- `so_close` unlocks the Upgrade autobuyer for Firestarter Upgrades. `Effect`: "autobuy"
 - "juice" - The developer who originally came up with this as an `Affected Objects` category has been fired. These Upgrades buff any Juice-related stats.
