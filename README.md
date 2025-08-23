@@ -41,12 +41,10 @@ If you wish to achieve something more unique than what the combination of the `E
 
 `Effect`
 - This depends on the first word written in `Affected Objects`, and it specifies what will happen to those affected objects. If you want an Upgrade to multiply Schlonky the Honkydonky LORED's Haste by 1,000, you would write "lored schlonky" for the `Affected Objects` and "haste x1000" for the `Effect`.
-
-For _additive_ Upgrades which have a + or - in the second word (e.g. "+1"), you would write how much they increase per level.
-- For example, if you want an Upgrade with 5 purchase levels to increase Output by +10 (base), you would write "output +2". It will increase by 2 each purchase, resulting in +10.
-
-As for _multiplicative_ Upgrades which have a x or / in the second word (e.g. "x2"), you write what you want the final value to be, and the game will calculate what the effect will be at each level.
-- For example, if you want an Upgrade with 5 purchase levels to multiply Output by 10, you would write "output x10". The game will run `value ** (1.0 / times_purchased.get_total())` (value being 10 in this example, and total times_purchased being 5), resulting in 10 ^ (1 / 5) = 1.58. That means that each level will multiply Output by 1.58, resulting in 10 after 5 purchases.
+- For _additive_ Upgrades which have a + or - in the second word (e.g. "+1"), you would write how much they increase per level.
+	- For example, if you want an Upgrade with 5 purchase levels to increase Output by +10 (base), you would write "output +2". It will increase by 2 each purchase, resulting in +10.
+- As for _multiplicative_ Upgrades which have a x or / in the second word (e.g. "x2"), you write what you want the final value to be, and the game will calculate what the effect will be at each level.
+	- For example, if you want an Upgrade with 5 purchase levels to multiply Output by 10, you would write "output x10". The game will run `value ** (1.0 / times_purchased.get_total())` (value being 10 in this example, and total times_purchased being 5), resulting in 10 ^ (1 / 5) = 1.58. That means that each level will multiply Output by 1.58, resulting in 10 after 5 purchases.
 
 Below is a list of real examples from the base game on how these two fields are used.
 - "lored coal" - "lored" is the category, and "coal" is the key of the Coal LORED. So, this Upgrade would affect the Coal LORED in some way.
