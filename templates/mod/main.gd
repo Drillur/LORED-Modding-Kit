@@ -1,12 +1,14 @@
-class_name MyMod
+class_name PascalCaseModKey
 extends Node
 
 
-## The string identifier of your mod. Access it with MyMod.key, or delete it
-static var key: String = "mod_name"
-
-
 #region Your Mod
+
+
+## Short identifier for your mod. It must be unique among all other mods used by
+## a player. It should also match the folder name in the res:// folder where you
+## put your main.gd, main.tscn, and all other folders and files.
+const MOD_KEY: String = "mod_key"
 
 
 ## Called when the mod is loaded into LORED for the first time
