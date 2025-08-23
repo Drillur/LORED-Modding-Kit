@@ -19,10 +19,12 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 
 # Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
+
 If you want to get real crazy, you can replace the Class field of that file with your own script which extends LORED.
 
 ## "Jobs" vs "Primary Jobs"
 Under `Jobs`, list every Job the LORED will be able to perform.
+
 `Primary Jobs` is used for rate calculations.
 - If a LORED only has one currency he attempts to collect but with multiple Jobs to achieve it, list the preferred Job only
 - If a LORED does have two currencies he makes with multiple jobs, list all of those Jobs here as well.
@@ -34,6 +36,7 @@ If you wish to achieve something more unique than what the combination of the `E
 ## "Effect" and "Affected Object"
 `Affected Objects`
 - The first word is typically the category, and the second will be the object's key, the two separated by a space. If you want an Upgrade to affect Will the Iron LORED, you would write "lored iron"
+
 `Effect`
 - This depends on the first word written in `Affected Objects`, and it specifies what will happen to those affected objects.
 
