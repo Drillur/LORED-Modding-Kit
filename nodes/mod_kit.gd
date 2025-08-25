@@ -7,10 +7,16 @@ extends Node
 
 static var mod_path: String = OS.get_user_data_dir().path_join("mods/")
 
+@export var mod_vars: Dictionary = {} # Mod key: { mod's saved vars }
+
 var signals := SignalBus.new()
 
 
 #region Control
+
+
+static func format_number(number: float) -> String:
+	return LoudNumber.format_number(number)
 
 
 #region Signals
@@ -20,8 +26,8 @@ func emit_mods_loaded() -> void:
 	signals.mods_loaded.emit()
 
 
-func await_mods_loaded() -> void:
-	await signals.mods_loaded
+func emit_classes_changed() -> void:
+	signals.classes_changed.emit()
 
 
 #endregion
@@ -46,6 +52,44 @@ func add_currency(currency_key: StringName, json_path: String) -> void:
 	
 	Currency.data[currency_key] = json.data
 	Currency.new(currency_key)
+
+
+func currency_to_int(currency_key: StringName) -> int:
+	return Currency.get_value(currency_key).to_int()
+
+
+func currency_get_text(currency_key: StringName) -> String:
+	return Currency.get_value(currency_key).get_text()
+
+
+#region Comparisons
+
+
+func currency_is_equal_to(currency_key: StringName, n: Variant) -> bool:
+	return Currency.get_value(currency_key).is_equal_to(n)
+
+
+func currency_is_greater_than(currency_key: StringName, n: Variant) -> bool:
+	return not currency_is_less_than_or_equal_to(currency_key, n)
+
+
+func currency_is_greater_than_or_equal_to(currency_key: StringName, n: Variant) -> bool:
+	return not currency_is_less_than(currency_key, n)
+
+
+func currency_is_less_than(currency_key: StringName, n: Variant) -> bool:
+	return Currency.get_value(currency_key).is_less_than(n)
+
+
+func currency_is_less_than_or_equal_to(currency_key: StringName, n: Variant) -> bool:
+	return Currency.get_value(currency_key).is_less_than_or_equal_to(n)
+
+
+#endregion
+
+
+func currency_get_changed_signal(currency_key: StringName) -> Signal:
+	return Currency.get_value(currency_key).changed
 
 
 func reset_currencies() -> void:
@@ -91,9 +135,14 @@ func add_lored(lored_key: StringName, json_path: String) -> void:
 	var json_text := file.get_as_text()
 	var json := JSON.new()
 	json.parse(json_text)
-	
 	LORED.data[lored_key] = json.data
-	LORED.new(lored_key)
+	
+	var _class_name: String = LORED.data[lored_key].get("Class", "LORED")
+	var _path: String = Main.get_class_path(_class_name)
+	if _path == "LORED":
+		LORED.new(lored_key)
+	else:
+		load(_path).new(lored_key)
 
 
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
@@ -108,6 +157,16 @@ func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
 func reset_loreds() -> void:
 	for lored: LORED in LORED.list.values():
 		lored.reset()
+
+
+#endregion
+
+
+#region Save
+
+
+func edit_save_data(mod_key: StringName, data: Variant) -> void:
+	mod_vars[mod_key] = data
 
 
 #endregion
@@ -166,9 +225,25 @@ func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	var json_text := file.get_as_text()
 	var json := JSON.new()
 	json.parse(json_text)
-	
 	Upgrade.data[upgrade_key] = json.data
-	Upgrade.new(upgrade_key)
+	
+	var _class_name: String = Upgrade.data[upgrade_key].get("Class", "Upgrade")
+	var _path: String = Main.get_class_path(_class_name)
+	if _path == "Upgrade":
+		Upgrade.new(upgrade_key)
+	else:
+		load(_path).new(upgrade_key)
+
+
+func upgrade_get_times_purchased_signal(currency_key: StringName) -> Signal:
+	return Upgrade.fetch(currency_key).times_purchased.changed
+
+
+func reset_upgrades() -> void:
+	for upgrade: Upgrade in Upgrade.list.values():
+		if upgrade.key == &"unlock_upgrades":
+			continue
+		upgrade.reset(10)
 
 
 func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
@@ -178,13 +253,6 @@ func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
 			upgrades_to_kill.append(upgrade_key)
 	for upgrade_key: StringName in upgrades_to_kill:
 		Upgrade.fetch(upgrade_key).kill()
-
-
-func reset_upgrades() -> void:
-	for upgrade: Upgrade in Upgrade.list.values():
-		if upgrade.key == &"unlock_upgrades":
-			continue
-		upgrade.reset(10)
 
 
 #endregion
@@ -236,9 +304,13 @@ class SignalBus:
 	
 	
 	@warning_ignore("unused_signal")
-	signal mods_loaded ## Emitted by Mod.load_enabled_mods() when done loading mods
+	signal mods_loaded
 	@warning_ignore("unused_signal")
-	signal classes_changed ## If you add any custom Classes, they cannot be used until this emits.
+	signal classes_changed
+	@warning_ignore("unused_signal")
+	signal saving_begun
+	@warning_ignore("unused_signal")
+	signal loading_finished
 
 
 #endregion

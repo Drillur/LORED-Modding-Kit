@@ -1,0 +1,16 @@
+{
+	"Name": "Blue Privilege",
+	"Class": "PassiveGain",
+	"Hide When Locked": true,
+	"Required Upgrade": "ADVANTAGE",
+	"Tree": "2unique",
+	"Persist": 1,
+	"Icon": "coin",
+	"Color": "advantage",
+	"Price": "40 advantage",
+	"Affected Object": "currency coin",
+	"Effect": "passive_gain +0",
+	"Currency Reward": "50 advantage",
+	"Effect Text": "Gain {name currency coin} based on {plural_name currency advantage}NEWLINECurrently: [b]%s[/b]/s",
+	"Toggleable": false
+}
