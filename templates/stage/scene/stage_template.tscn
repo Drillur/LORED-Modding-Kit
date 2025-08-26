@@ -5,6 +5,7 @@
 [node name="StageTemplate" type="MarginContainer"]
 offset_right = 1365.0
 offset_bottom = 768.0
+mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

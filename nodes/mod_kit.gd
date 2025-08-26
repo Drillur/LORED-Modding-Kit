@@ -58,6 +58,10 @@ func currency_to_int(currency_key: StringName) -> int:
 	return Currency.get_value(currency_key).to_int()
 
 
+func currency_to_log10(currency_key: StringName) -> float:
+	return Currency.get_value(currency_key).to_log()
+
+
 func currency_get_text(currency_key: StringName) -> String:
 	return Currency.get_value(currency_key).get_text()
 
@@ -89,7 +93,7 @@ func currency_is_less_than_or_equal_to(currency_key: StringName, n: Variant) -> 
 
 
 func currency_get_changed_signal(currency_key: StringName) -> Signal:
-	return Currency.get_value(currency_key).changed
+	return Currency.get_amount(currency_key).changed
 
 
 func reset_currencies() -> void:
@@ -206,6 +210,19 @@ func refresh_stages() -> void:
 func reset_stages() -> void:
 	for stage: Stage in Stage.list.values():
 		stage.reset()
+
+
+#endregion
+
+
+#region UI
+
+
+func throw_text_from_node(spawn_node: Node, text: String, icon: Texture2D = null) -> void:
+	if icon:
+		FlyingText.new_text_with_icon(spawn_node, text, icon)
+	else:
+		FlyingText.new_text(spawn_node, text)
 
 
 #endregion

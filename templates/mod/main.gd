@@ -39,7 +39,9 @@ func _prepare_kit() -> void:
 
 ## Called when all mods finish loading
 func _on_mods_loaded() -> void:
-	pass
+	#kill_all()
+	add_all_lored_resources()
+	refresh_all()
 
 
 #endregion
@@ -72,6 +74,17 @@ func _on_loading_finished() -> void:
 ### Feel free to delete this region.
 
 
+## Adds all LORED-type resources in the order they must be added. See the method
+## descriptions for more details
+func add_all_lored_resources() -> void:
+	add_stages_in_folder("res://%s/stages" % MOD_KEY)
+	add_currencies_in_folder("res://%s/currencies" % MOD_KEY)
+	add_jobs_in_folder("res://%s/jobs" % MOD_KEY)
+	add_loreds_in_folder("res://%s/loreds" % MOD_KEY)
+	add_upgrade_trees_in_folder("res://%s/upgrade trees" % MOD_KEY)
+	add_upgrades_in_folder("res://%s/upgrades" % MOD_KEY)
+
+
 ## Results in a blank slate of a game, allowing you to fill it with entirely
 ## custom LOREDs, currencies, Stages, and Upgrades
 static func kill_all() -> void:
@@ -94,17 +107,15 @@ static func reset_all() -> void:
 	reset_loreds()
 
 
+## Uses the same number formatting function all other numbers in LORED use and
+## follows the player's number notation setting.
+## Example: 3.234897239 -> "3.2"
+## Example: 2_398_745_982 -> "2.4B"
 static func format_number(number: float) -> String:
 	return kit.format_number(number)
 
 
 #region Currency
-
-
-## Adds `amount` to a specified currency. `amount` can be an int or float,
-## or a string in the format of "'mantissa'e'exponent'", e.g. "1e6" or "5.5e20"
-static func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
-	kit.currency_add_amount(currency_key, amount)
 
 
 ## Creates a new Currency and stores it in memory. Must be called after its
@@ -113,10 +124,32 @@ static func add_currency(currency_key: StringName, json_path: String) -> void:
 	kit.add_currency(currency_key, json_path)
 
 
+## Scans `path` and subfolders for json files, calling add_currency on valid files
+static func add_currencies_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for key: String in folder_contents.keys():
+		add_currency(key, folder_contents[key])
+
+
+## Adds `amount` to a specified currency. `amount` can be an int or float,
+## or a string in the format of "'mantissa'e'exponent'", e.g. "1e6" or "5.5e20"
+static func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
+	kit.currency_add_amount(currency_key, amount)
+
+
+## Returns the amount of a Currency converted to an int. This will crash the
+## game if called when the exponent is greater than 307ish
 static func currency_to_int(currency_key: StringName) -> int:
 	return kit.currency_to_int(currency_key)
 
 
+## Returns the amount of a Currency converted to log10
+static func currency_to_log10(currency_key: StringName) -> float:
+	return kit.currency_to_log10(currency_key)
+
+
+## Uses the same number formatting function all other Big class Objects in LORED
+## use and follows the player's number notation setting
 static func currency_get_text(currency_key: StringName) -> String:
 	return kit.currency_get_text(currency_key)
 
@@ -176,11 +209,25 @@ static func add_job(job_key: StringName, json_path: String) -> void:
 	kit.add_job(job_key, json_path)
 
 
+## Scans `path` and subfolders for json files, calling add_job on valid files
+static func add_jobs_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for key: String in folder_contents.keys():
+		add_job(key, folder_contents[key])
+
+
 ## Creates a new LORED using a .json file and stores them in memory. This will
 ## NOT create a LOREDPrefab. You must create a Stage scene and place LORED
 ## placeholder nodes in them. Refer to stage_templace.tscn for help :D
 static func add_lored(lored_key: StringName, json_path: String) -> void:
 	kit.add_lored(lored_key, json_path)
+
+
+## Scans `path` and subfolders for json files, calling add_lored on valid files
+static func add_loreds_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for key: String in folder_contents.keys():
+		add_lored(key, folder_contents[key])
 
 
 ## Removes LOREDs from memory by their keys. If `loreds_to_kill` is empty,
@@ -215,6 +262,13 @@ static func add_stage(stage_key: StringName, json_path: String) -> void:
 	kit.add_stage(stage_key, json_path)
 
 
+## Scans `path` and subfolders for json files, calling add_stage on valid files
+static func add_stages_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for key: String in folder_contents.keys():
+		add_stage(key, folder_contents[key])
+
+
 ## Must be called once you're done adding Stages and LOREDs
 static func refresh_stages() -> void:
 	kit.refresh_stages()
@@ -234,6 +288,17 @@ static func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 #endregion
 
 
+#region UI
+
+
+## Spawns a lil label with (optionally) an icon. It lasts for about 1 second
+static func throw_text_from_node(spawn_node: Node, text: String, icon: Texture2D = null) -> void:
+	kit.throw_text_from_node(spawn_node, text, icon)
+
+
+#endregion
+
+
 #region Upgrade
 
 
@@ -241,6 +306,13 @@ static func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
 ## Upgrade's data
 static func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	kit.add_upgrade(upgrade_key, json_path)
+
+
+## Scans `path` and subfolders for json files, calling add_upgrade on valid files
+static func add_upgrades_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for upgrade_key: String in folder_contents.keys():
+		add_upgrade(upgrade_key, folder_contents[upgrade_key])
 
 
 ## Returns a signal that is emitted whenever an Upgrade is purchased or reset
@@ -272,6 +344,13 @@ static func add_upgrade_tree(tree_key: StringName, json_path: String) -> void:
 	kit.add_upgrade_tree(tree_key, json_path)
 
 
+## Scans `path` and subfolders for json files, calling add_upgrade_tree on valid files
+static func add_upgrade_trees_in_folder(path: String) -> void:
+	var folder_contents: Dictionary[String, String] = dir_contents(path, ".json")
+	for key: String in folder_contents.keys():
+		add_upgrade_tree(key, folder_contents[key])
+
+
 ## This will scan all Upgrade Tree scenes for nodes which must be replaced with
 ## Upgrade Nodes. This should be called once all Tree and Upgrades are added
 static func refresh_trees() -> void:
@@ -282,6 +361,65 @@ static func refresh_trees() -> void:
 ## all Upgrade Trees will be killed
 static func kill_upgrade_trees(trees_to_kill: Array[StringName] = []) -> void:
 	kit.kill_upgrade_trees(trees_to_kill)
+
+
+#endregion
+
+
+#region Utility
+
+
+static func get_random_color() -> Color:
+	return Color(randf(), randf(), randf(), 1.0)
+
+
+## Given a float, has a chance to return the value either rounded up or down
+## based on the decimal value of the float
+static func roll_as_int(value: float) -> int:
+	var chance_to_return_plus_one := value - floorf(value)
+	var result: int = floori(value)
+	if randf() < chance_to_return_plus_one:
+		result += 1
+	return result
+
+
+## Returns a dictionary of filename: paths on files found in `path` matching
+## extension `required_extension`
+static func dir_contents(
+		path: String,
+		required_extension: String,
+		_result: Dictionary[String, String] = {}
+	) -> Dictionary[String, String]:
+	
+	required_extension = required_extension.trim_prefix(".")
+	path = path.trim_suffix("/")
+	
+	var directory := DirAccess.open(path)
+	if not directory:
+		printerr(dir_contents, "DirAccess failed to open '%s' -" % path, error_string(DirAccess.get_open_error()))
+		return _result
+	
+	directory.list_dir_begin()
+	var filename: String = directory.get_next()
+	
+	while not filename.is_empty():
+		if directory.current_is_dir():
+			dir_contents(path + "/" + str(filename), required_extension, _result)
+		else:
+			var _name: String = filename.split(".")[0]
+			var extension: String = filename
+			extension = extension.replace(".remap", "")
+			extension = extension.replace(".import", "")
+			extension = extension.get_extension()
+			
+			print(filename)
+			if required_extension == extension:
+				var _path: String = "%s/%s.%s" % [path, _name, extension]
+				_result[_name] = _path
+		
+		filename = directory.get_next()
+	
+	return _result
 
 
 #endregion
