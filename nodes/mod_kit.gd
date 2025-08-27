@@ -12,11 +12,18 @@ static var mod_path: String = OS.get_user_data_dir().path_join("mods/")
 var signals := SignalBus.new()
 
 
+func _ready() -> void:
+	SaveManager.saving_started.connect(signals.saving_begun.emit)
+	SaveManager.loading_ended.connect(signals.loading_finished.emit)
+	Main.instance.prestiged.connect(signals.prestiged.emit)
+
+
 #region Control
 
 
-static func format_number(number: float) -> String:
-	return LoudNumber.format_number(number)
+func kill_all_else() -> void:
+	Main._prestige_buffs(10)
+	Main._prestige_dice(10)
 
 
 #region Signals
@@ -40,8 +47,12 @@ func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
 	Currency.add(currency_key, amount)
 
 
+func currency_set_amount(currency_key: StringName, amount: Variant) -> void:
+	Currency.get_amount(currency_key).set_to(amount)
+
+
 func add_currency(currency_key: StringName, json_path: String) -> void:
-	Log.pr(add_currency, currency_key)
+	#Log.pr(add_currency, currency_key)
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
 		print(" - FileAccess.open failed")
@@ -101,8 +112,12 @@ func reset_currencies() -> void:
 		currency.reset(10)
 
 
+func refresh_currencies() -> void:
+	Currency.signals.changed.emit()
+
+
 func kill_currencies(currencies_to_kill: Array[StringName] = []) -> void:
-	Log.pr(kill_currencies, currencies_to_kill)
+	#Log.pr(kill_currencies, currencies_to_kill)
 	if currencies_to_kill.is_empty():
 		for currency_key: StringName in Currency.list.keys():
 			currencies_to_kill.append(currency_key)
@@ -117,7 +132,7 @@ func kill_currencies(currencies_to_kill: Array[StringName] = []) -> void:
 
 
 func add_job(job_key: StringName, json_path: String) -> void:
-	Log.pr(add_job, job_key)
+	#Log.pr(add_job, job_key)
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
 		print(" - FileAccess.open failed")
@@ -131,7 +146,7 @@ func add_job(job_key: StringName, json_path: String) -> void:
 
 
 func add_lored(lored_key: StringName, json_path: String) -> void:
-	Log.pr(add_lored, lored_key)
+	#Log.pr(add_lored, lored_key)
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
 		print(" - FileAccess.open failed")
@@ -180,7 +195,7 @@ func edit_save_data(mod_key: StringName, data: Variant) -> void:
 
 
 func add_stage(stage_key: StringName, json_path: String) -> void:
-	Log.pr(add_stage, stage_key)
+	#Log.pr(add_stage, stage_key)
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
 		print("FileAccess.open failed")
@@ -194,12 +209,13 @@ func add_stage(stage_key: StringName, json_path: String) -> void:
 
 
 func kill_stages(stages_to_kill: Array[StringName] = []) -> void:
-	Log.pr(kill_stages, stages_to_kill)
+	#Log.pr(kill_stages, stages_to_kill)
 	if stages_to_kill.is_empty():
 		for stage_key: StringName in Stage.list.keys():
 			stages_to_kill.append(stage_key)
 	for stage_key: StringName in stages_to_kill:
 		Stage.fetch(stage_key).kill()
+	
 	refresh_stages()
 
 
@@ -232,7 +248,7 @@ func throw_text_from_node(spawn_node: Node, text: String, icon: Texture2D = null
 
 
 func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
-	Log.pr(add_upgrade, upgrade_key)
+	#Log.pr(add_upgrade, upgrade_key)
 	
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
@@ -264,7 +280,7 @@ func reset_upgrades() -> void:
 
 
 func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
-	Log.pr(kill_upgrades, upgrades_to_kill)
+	#Log.pr(kill_upgrades, upgrades_to_kill)
 	if upgrades_to_kill.is_empty():
 		for upgrade_key: StringName in Upgrade.list.keys():
 			upgrades_to_kill.append(upgrade_key)
@@ -279,7 +295,7 @@ func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:
 
 
 func add_upgrade_tree(tree_key: StringName, json_path: String) -> void:
-	Log.pr(add_upgrade_tree, tree_key)
+	#Log.pr(add_upgrade_tree, tree_key)
 	
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
@@ -299,12 +315,22 @@ func refresh_trees() -> void:
 
 
 func kill_upgrade_trees(trees_to_kill: Array[StringName] = []) -> void:
-	Log.pr(kill_upgrade_trees, trees_to_kill)
+	#Log.pr(kill_upgrade_trees, trees_to_kill)
 	if trees_to_kill.is_empty():
 		for tree_key: StringName in UpgradeTree.list.keys():
 			trees_to_kill.append(tree_key)
 	for tree_key: StringName in trees_to_kill:
 		UpgradeTree.fetch(tree_key).kill()
+
+
+#endregion
+
+
+#region Utility
+
+
+func format_number(number: float) -> String:
+	return LoudNumber.format_number(number)
 
 
 #endregion
@@ -328,6 +354,8 @@ class SignalBus:
 	signal saving_begun
 	@warning_ignore("unused_signal")
 	signal loading_finished
+	@warning_ignore("unused_signal")
+	signal prestiged
 
 
 #endregion

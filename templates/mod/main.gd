@@ -5,6 +5,8 @@ extends Node
 #region Your Mod
 
 
+signal loaded ## Emitted once all setup methods for this mod are called
+
 ## Short identifier for your mod. It must be unique among all other mods used by
 ## a player. It should also match the folder name in the res:// folder where you
 ## put your mod's files!
@@ -39,9 +41,15 @@ func _prepare_kit() -> void:
 
 ## Called when all mods finish loading
 func _on_mods_loaded() -> void:
+	# Disconnect so that this method is not called again
+	kit.signals.mods_loaded.disconnect(_on_mods_loaded)
+	
 	#kill_all()
 	add_all_lored_resources()
 	refresh_all()
+	
+	# Alert your mod that it finished loading key elements
+	loaded.emit()
 
 
 #endregion
@@ -64,7 +72,6 @@ func _on_loading_finished() -> void:
 
 
 #endregion
-
 
 
 #region LORED Modding Kit Methods
@@ -93,6 +100,11 @@ static func kill_all() -> void:
 	kill_upgrades()
 	kill_upgrade_trees()
 	kill_currencies()
+	
+	# Kill the leftovers:
+	# - Buffs
+	# - Dice
+	kit.kill_all_else()
 
 
 static func refresh_all() -> void:
@@ -107,12 +119,9 @@ static func reset_all() -> void:
 	reset_loreds()
 
 
-## Uses the same number formatting function all other numbers in LORED use and
-## follows the player's number notation setting.
-## Example: 3.234897239 -> "3.2"
-## Example: 2_398_745_982 -> "2.4B"
-static func format_number(number: float) -> String:
-	return kit.format_number(number)
+## Returns the signal which is emitted after a prestige finishes resetting everything
+static func get_prestiged_signal() -> Signal:
+	return kit.signals.prestiged
 
 
 #region Currency
@@ -131,10 +140,15 @@ static func add_currencies_in_folder(path: String) -> void:
 		add_currency(key, folder_contents[key])
 
 
-## Adds `amount` to a specified currency. `amount` can be an int or float,
+## Adds `amount` to a specified Currency. `amount` can be an int or float,
 ## or a string in the format of "'mantissa'e'exponent'", e.g. "1e6" or "5.5e20"
 static func currency_add_amount(currency_key: StringName, amount: Variant) -> void:
 	kit.currency_add_amount(currency_key, amount)
+
+
+## Sets a specified Currency amount to `amount`
+static func currency_set_amount(currency_key: StringName, amount: Variant) -> void:
+	kit.currency_set_amount(currency_key, amount)
 
 
 ## Returns the amount of a Currency converted to an int. This will crash the
@@ -189,6 +203,12 @@ static func currency_get_changed_signal(currency_key: StringName) -> Signal:
 ## Resets the amount, rate, and pending values of all Currencies
 static func reset_currencies() -> void:
 	kit.reset_currencies()
+
+
+## This should update the Offline Earnings window with all of the currently-
+## existing Currencies
+static func refresh_currencies() -> void:
+	kit.refresh_currencies()
 
 
 ## Remove Currencies from memory by their keys. If `currencies_to_kill` is
@@ -367,6 +387,14 @@ static func kill_upgrade_trees(trees_to_kill: Array[StringName] = []) -> void:
 
 
 #region Utility
+
+
+## Uses the same number formatting function all other numbers in LORED use and
+## follows the player's number notation setting.
+## Example: 3.234897239 -> "3.2"
+## Example: 2_398_745_982 -> "2.4B"
+static func format_number(number: float) -> String:
+	return kit.format_number(number)
 
 
 static func get_random_color() -> Color:

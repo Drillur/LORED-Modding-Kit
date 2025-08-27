@@ -9,6 +9,7 @@
 	"Prestige Past Verb": "Metastasized",
 	"Prestige Present Verb": "Metastasize",
 	"Requires Prestige to Apply": true,
+	"Unlocked By Default": false,
 	"Prestige Order": 1,
 	"Upgrade Container Shortcut": "E",
 	"Path": "uid://bx7oqfpwl1p3r"

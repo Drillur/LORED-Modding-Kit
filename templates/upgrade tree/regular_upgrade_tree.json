@@ -5,6 +5,7 @@
 	"Stage": "main1",
 	"Persist": 0,
 	"Requires Prestige to Apply": false,
+	"Unlocked By Default": false,
 	"Prestige Order": 4,
 	"Upgrade Container Shortcut": "Q",
 	"Path": "uid://p473poqrgkdm"
