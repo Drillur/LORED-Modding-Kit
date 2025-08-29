@@ -1,0 +1,282 @@
+~ stone
+if is_section_read("stone_intro") == false
+	=> stone_intro
+=> stone_hub
+
+
+~ stone_hub
+do set_pose("stone_hub")
+STONE: [[Lalala~!|Hrk!|Oh, you spooked me!]]
+- How do I level you up? =>< stone_how_do_i_level_you_up
+- What does leveling you up do? =>< whatdoeslevelingyouupdo
+- What is a LORED? =>< what_is_a_lored
+- Did you mention finding a rock I would like? =>< stone_found_a_rock_youd_like
+- Why do you like picking up rocks? Are you acoustic? =>< areyouacoustic
+=> stone_hub
+
+
+~ stone_intro
+STONE: Whassup, fella?
+- Hi.
+	STONE: What do you want?
+	- Nothing.
+		STONE: Alright!
+		STONE: Cya!
+		- Wait!
+			STONE: Whaattttt?
+			- Aren't you surprised to see me?
+				STONE: ...Wow!
+				STONE: I can't believe it! You're finally here!
+				STONE: Something like that?
+				- Yes.
+				- No.
+				STONE: Listen!! I just want to pick up rocks. Every second that I'm not doing that, I'm not truly being myself, know what I mean?
+				- Yes.
+				- No.
+				STONE: Just click on the {{get_icon_text("Arrow Up Fill")}} button. You'll get the hang of it!
+				- Okay, whatever.
+				- Are you listening to me?
+					STONE: Huh?
+					=> END!
+			- What do I do in this game? => stuck
+		- Goodbye. => END!
+	- What do I do?
+		=> stuck
+- I don't know what's going on.
+	=> stuck
+=> END!
+
+
+#region Secret Rocks
+
+
+~ stone_found_a_rock_youd_like
+STONE: Oh, yeah!!
+STONE: Look at this! {{get_currency_icon_text("stone")}}
+- That's very nice.
+	STONE: I know!!!
+- It looks like all of the others.
+	STONE: ..What? Uhm... no, it doesn't.
+	- Yes, it does.
+	STONE: Ooh... Okay. I understand a little more about you, now.
+	- What did you learn?
+	STONE: You don't have "the eye".
+	- "No lie"?
+		STONE: It's true! Well, you can pick it up, if you practice enough.
+	- You don't have "a life".
+		STONE: Hey! What?! Rocks are as cool as anything else!
+	- How about go "go die".
+		do set_pose("the_eye_tears")
+		STONE: No... no, I won't!...
+	- Listen here, "small fry"!
+		{{get_lored_name("stone")}} appears to be [i]listening here[/i], waiting for you to continue.
+		- Uhm... do you want to come with me to, err--... "Dubai"?
+			STONE: ... Do they have rocks there?
+			- Yes.
+			STONE: They do?
+			- They're quite small.
+			STONE: Pebbles?
+			- No. Sand.
+			STONE: ...
+		- "Stand by". I can't think of anything to "go by".
+			STONE: ... ... ...
+	- "Go cry" about it.
+		do set_pose("the_eye_angry")
+		STONE: [shake rate=20 level=10]...[/shake]
+	- I'm gonna give you a "black eye".
+		do set_pose("the_eye_gasp")
+		STONE: !
+	- Alright, "tough guy".
+		STONE: Did I say something wrong?
+	- "Shoo, fly".
+		STONE: Hey! You can't just "shoo" me! Where are you going?!
+	- How's this for a "reply"\: In my "mind's eye", I "let fly" your "scraped-by" "red-eye" "sky-high", "thereby" with a "goodbye" and a "cold sigh" I "deny" and "decry" your "awry", "cockeye", "get-by" "outcry". "Tongue-tied", "wise guy"? "What I" "wouldn't try" to see you "comply" and "just die".
+		{{get_lored_name("stone")}} has a glazed look in his eye from trying to process your statement.
+		You have incapacitated him. What do you want to do now?
+		- Make sure he's comfortable.
+			You place him in a comfy recliner with a blanket and tea. How kind of you!
+			if get_var("got_joy_stone_found_a_rock_youd_like") == false
+				do set_var("got_joy_stone_found_a_rock_youd_like", true)
+				do add_currency("joy", 1)
+				You gain [b]1 {{get_currency_name("joy")}}[/b]!
+		- Steal his secret rocks. [if is_section_read("stone_get_secret_rocks") == false]
+			=>< stone_get_secret_rocks
+		=> END!
+=> END
+
+
+~ stone_get_secret_rocks
+You gain [b]{{add_secret_stones()}} {{get_currency_name("stone")}}[/b]!
+You had better run before he wakes up.
+- Run!
+=> END
+
+
+#endregion
+
+
+~ stuck
+STONE: Oh, are you stuck?
+- Yes.
+	STONE: OH! Sorry!
+	STONE: Just click on the {{get_icon_text("Arrow Up Fill")}} button. You'll get the hang of it!
+- No.
+	STONE: Well, uhm... nice to meet you, I guess...?
+	STONE: Cya!
+=> END!
+
+
+~ stone_how_do_i_level_you_up
+STONE: Just click on the {{get_icon_text("Arrow Up Fill")}} button! But it costs resources, so if you don't have enough, it won't work.
+- Leveling you up costs {{get_currency_name("iron")}} and {{get_currency_name("copper")}}. How can I get those?
+	if is_lored_unlocked("iron") or is_lored_unlocked("copper")
+		STONE: You just need to level them up! You've already unlocked them, just go level em up! But they can't work until they have {{get_currency_name("iron_ore")}} and {{get_currency_name("copper_ore")}}, so you'll want to upgrade the LOREDs that produce those, too!
+		- Okay, I'll go click on all of the {{get_icon_text("Arrow Up Fill")}} buttons. Easy!
+			=> END!
+		- Thanks for the tips.
+	else
+		STONE: I guess you'll just have to wait until they're unlocked to find out! [color=#808080]But keep this in mind: {{get_currency_name("iron")}} goes super well with peanut butter and honey.[/color]
+		- Alrighty, then.
+- Thanks, guy!
+	STONE: You are become welcome.
+	- Continue.
+	- Why would you say that that way?
+		STONE: I'm quirky!
+		- Alright, then.
+		- I wish you were [b][i]twuirky[/i][/b], on my lap.
+			DEV: I know I put that as an option, but [i]you[/i] clicked it, you sick fuck. Go take a cold shower! What's wrong with you!
+			COPPER: Bro... why'd you click that?
+			Even I'm ashamed of you, and I'm the [i]narrator[/i], the most objective being in existence!
+			IRON_ORE: You're disgusting.
+			OIL: [i]*Starts crying hysterically.*[/i]
+			if get_var("got_grief_stone_how_do_i_level_you_up") == false
+				do set_var("got_grief_stone_how_do_i_level_you_up", true)
+				do add_currency("grief", 1)
+				You receive [b]1 {{get_currency_name("grief")}}[/b].
+			=> END!
+=> END
+
+
+~ whatdoeslevelingyouupdo
+STONE: It wrinkles my brain by 200%! ... Actually, it doubles most of my stats. I'll make 2x as much {{get_currency_name("stone")}}, for example. [shake rate=20.0 level=5 connected=0]BUT!!![/shake] It also doubles my Input!!! I'll use twice as much {{get_currency_name("coal")}}! So be careful!!!
+- Cool!
+=> END
+
+
+~ what_is_a_lored
+STONE: Uh... me. I'm a LORED. So is {{get_lored_name("coal")}}.
+- Oh, okay!
+- But [i]what are you?![/i]
+	STONE: Eh?! Uhm... I don't know!!! What's wrong with you, asking me that kind of thing?! What's a [b]Player[/b]?! Huh?! Riddle me that!!!
+	- A player is a human in the real world who purchased (or otherwise obtained) this video game and is "playing" it.
+		{{get_lored_name("stone")}} appears aghast.
+		STONE: I see...
+		STONE: Well, okay, if we're being literal,--
+		STONE: A LORED is a stickdude in the game LORED who tries his best to produces resources, forever.
+		- Thank you.
+			STONE: Sure, pal, anytime!
+			=> END
+		- I don't know what I was expecting.
+			STONE: By the way, how do you pronounce "LORED"?
+			- Low-red (maroon).
+				STONE: So you see something like "the {{get_currency_name("coal")}} LORED" and you pronounce it "the coal low-red"?
+				- Yes.
+					STONE: I see!! I always wondered how it was pronounced! Thanks!
+					=> END
+				- No.
+					STONE: What?! You're confusing. I'm leaving.
+					=> END!
+			- Lorde (chandelier).
+				STONE: ... What? Lorde didn't sing Chandelier.
+				- Yes she did.
+				STONE: No, she didn't!! It was Sia!!
+				STONE: You crazy!!
+				STONE: And I freaking [b]love[/b] Sia! She gives artistes like me a reason to go on.
+				- I like the part where she swings around.
+					STONE: Now what the hell are you talking about?! The Miley Cyrus music video???
+					STONE: Get out of my face, man, you don't know nothin bout pop freakin culture!
+					=> END
+				- What, are you suicidal or something?
+					STONE: Huh?! No!
+					- Okay, then.
+						=> END
+					- I am.
+						STONE: Oh, for frick's sake, why does the Dev add options like this?!
+						STONE: Sorry, but I'm just going to ignore your cry for help. Good luck, you suicidal bitch. [do reply("iron", "stone", "Uh, hey, there, buddy, can we not talk to the Player that way?!", "NervousSmile")] [do reply("iron_ore", "stone", "When did you stop being a loser, {title lored stone}?!")]
+						=> END!
+			- Lard (why).
+				STONE: Why.
+				STONE: Well, okay, then! You're the Player! You must have it right!
+				STONE: Thanks!
+				=> END
+=> END
+
+
+~ areyouacoustic
+STONE: What?! No! I'm artistic!
+- Artistic...?
+	STONE: Yep! I crumble these up and splash em onto a big canvas and then crush them flat with a huge press! You would be surprised at the colors that are possible with rocks. Do you want to see one of my pieces?!
+	- Sure.
+		do set_pose("stone_canvas")
+		STONE: So, what do you think?
+		- Wow! Cool!
+			STONE: Thanks!! Hee hee!
+		- Er... it's nice!
+			STONE: [i]Er...[/i] thank you! ...?
+			- You're welcome.
+		- Think about what?
+			STONE: My art!
+			- Oh, was that it?
+			STONE: Uhm... yeah...?!
+			- Oh. Yikes.
+				STONE: Oh, no! Is it bad?
+				- No! It's good!
+					STONE: Oh. Um... okay!! Cool!
+					- Something just came up. I have to go.
+					STONE: Okay--catch you later!
+				- Yeah. It's just a crushed rock.
+					STONE: It's just a... dude, no!
+					STONE: I... I don't even know how to explain to you how badly you misunderstood the piece. I'm speechless!
+					- What's there to understand?
+					STONE: It says, like... inside every [i]boring[/i] rock, as you might put it, is dots of beauty! And the same goes for all of us!
+					STONE: Don't you see? It's symbolical!!
+					- Oh, I get it, now.
+						STONE: Really? Cool. Well, I'll keep working on them and maybe you'll be immediately impressed by one of the pieces!
+						- Good luck!
+						- I doubt it. You will never amount to much.
+							It seems that {{get_lored_name("stone")}} didn't hear you. Do you wish you repeat yourself?
+							- Yes.
+								DEV: You sure about that, chief?
+								- Yes.
+									DEV: All right. Go on. Say it.
+									- Hey, {{get_lored_name("stone")}}! I don't think anything you ever create will impress me. You are bad at creating art and I think you should give it up forever.
+										do set_currency("malignancy", 10)
+										do save_game()
+										Sorry, an error occurred and you lost all of your {{get_currency_name("malignancy")}}. It has been reset to 10.
+										And, for a reason unbeknownst to anybody, your game has been saved, too.
+										Furthermore, {{get_lored_name("stone")}} was unable to receive your message. Sorry for the inconvenience.
+										Alert! Three errors have occurred in a row! This conversation will be terminated immediately. Have a good day.
+										=> END!
+									- I changed my mind.
+								- No.
+								DEV: That's what I thought. It ain't hard to not be mean, is it?
+								- I guess not.
+								- Sometimes it is.
+									DEV: Look, mate, I ain't in the mood to give therapy to you. Your awful upbringing is something you're going to have to deal with on your own time, understand?
+									DEV: Catch ya later, sucka.
+					- Yeah, it still sucks.
+						STONE: Gotcha! Okay, then. I gotta go.
+						if get_var("got_grief_areyouacoustic") == false
+							do set_var("got_grief_areyouacoustic", true)
+							do add_currency("grief", 1)
+							You gain [b]{{format_number(1)}} {{get_currency_name("grief")}}[/b].
+			- Can I see it again?
+				do set_pose("stone_canvas")
+				STONE: Yeah!
+				- Oh, yeah, wow, that's so good.
+				STONE: Wow, you really think so? :D
+				- Yeah, totally.
+					STONE: Wowie!!
+				- Something just came up! I have to go.
+	- No.
+=> END

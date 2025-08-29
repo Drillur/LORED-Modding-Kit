@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_14"
+type="Resource"
+uid="uid://dkkoe3ev23vwm"
+path="res://.godot/imported/stone_dialogue.dialogue-222852089611298abeb1197077f9c00f.tres"
+
+[deps]
+
+source_file="res://groups/mod/LORED-Modding-Kit/templates/dialogue/stone_dialogue.dialogue"
+dest_files=["res://.godot/imported/stone_dialogue.dialogue-222852089611298abeb1197077f9c00f.tres"]
+
+[params]
+
+defaults=true
