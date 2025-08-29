@@ -237,7 +237,7 @@ static func add_jobs_in_folder(path: String) -> void:
 
 
 ## Creates a new LORED using a .json file and stores them in memory. This will
-## NOT create a LOREDPrefab. You must create a Stage scene and place LORED
+## NOT create a LOREDNode. You must create a Stage scene and place LORED
 ## placeholder nodes in them. Refer to stage_templace.tscn for help :D
 static func add_lored(lored_key: StringName, json_path: String) -> void:
 	kit.add_lored(lored_key, json_path)
