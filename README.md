@@ -4,7 +4,8 @@ Helpful tools for creating mods for LORED :D
 Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
-After these steps, your ready-to-download mod will look something like this:
+
+# After these steps, your ready-to-download mod will look something like this:
 - SteamCuratorTycoon.zip
 	- steam_curator_tycoon (folder)
 		- data_deletions.json
@@ -12,6 +13,7 @@ After these steps, your ready-to-download mod will look something like this:
 		- info.json
 		- mod.zip
 
+# Steps
 1. Create a `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
