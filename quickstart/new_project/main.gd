@@ -424,7 +424,6 @@ static func dir_contents(
 	
 	var directory := DirAccess.open(path)
 	if not directory:
-		printerr(dir_contents, "DirAccess failed to open '%s' -" % path, error_string(DirAccess.get_open_error()))
 		return _result
 	
 	directory.list_dir_begin()
@@ -440,7 +439,6 @@ static func dir_contents(
 			extension = extension.replace(".import", "")
 			extension = extension.get_extension()
 			
-			print(filename)
 			if required_extension == extension:
 				var _path: String = "%s/%s.%s" % [path, _name, extension]
 				_result[_name] = _path

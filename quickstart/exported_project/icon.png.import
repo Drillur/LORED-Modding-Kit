@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdnjbobqvbda7"
-path="res://.godot/imported/icon.png-2569b8be5bc65aa57efd03ec6f44eabb.ctex"
+path="res://.godot/imported/icon.png-832d2563c0e35f9d9ce792130a4d1613.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://groups/mod/LORED-Modding-Kit/templates/mod/icon.png"
-dest_files=["res://.godot/imported/icon.png-2569b8be5bc65aa57efd03ec6f44eabb.ctex"]
+source_file="res://groups/mod/LORED-Modding-Kit/quickstart/exported_project/icon.png"
+dest_files=["res://.godot/imported/icon.png-832d2563c0e35f9d9ce792130a4d1613.ctex"]
 
 [params]
 
