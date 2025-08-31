@@ -18,7 +18,7 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 	- Add an `icon.png` or `icon.svg` representing your mod.
 		- 16x16 is the recommended resolution for this icon. It will be displayed in-game at 32x32.
 
-7. Make your mod!
+7. **Make your mod!**
 
 8. Export the project as a PCK/Zip (it should zip it up!). Name it `mod.zip` and export it to your exported project folder (with your info and icon).
 	- Ensure `Export As Patch` is checked on.
