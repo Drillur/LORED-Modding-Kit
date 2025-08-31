@@ -4,6 +4,14 @@ Helpful tools for creating mods for LORED :D
 Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
+After these steps, your ready-to-download mod will look something like this:
+- SteamCuratorTycoon.zip
+	- steam_curator_tycoon (folder)
+		- data_deletions.json
+		- icon.png
+		- info.json
+		- mod.zip
+
 1. Create a `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
@@ -34,14 +42,7 @@ Be sure to read the quickstart section! Beyond that, you don't have to read all 
 8. To use your mod, unzip the exported project folder and place it into the LORED `mods` folder.
 	- Windows: `%USERPROFILE%/AppData/Roaming/Godot/app_userdata/LORED/mods/`
 	- Linux: `~/.local/share/godot/app_userdata/LORED/mods/`
-
-Example of how a mod might look:
-- SteamCuratorTycoon.zip
-	- steam_curator_tycoon (folder)
-		- data_deletions.json
-		- icon.png
-		- info.json
-		- mod.zip
+You're done! Yee-haw! Wee-hoo!
 
 # Creating Custom LOREDs
 `templates > lored > lored_data.json` is all the information LORED requires to get started. You can customize any of the values there.
