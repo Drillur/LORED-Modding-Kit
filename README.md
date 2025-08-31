@@ -4,28 +4,34 @@ Helpful tools for creating mods for LORED :D
 Be sure to read the quickstart section! Beyond that, you don't have to read all this crap at once. Refer to it as you have questions, or somethin.
 
 ## Quickstart
-1. Think of `key` for your mod.
+1. Create a `key` for your mod.
 	- It should be similar to the name of your mod.
 	- This is a short identifier which must be unique. If two mods share a `key`, one mod will overwrite the other.
-2. Create a new project with Godot Engine. You will have a nearly-blank `res://` folder.
-3. Copy the `quickstart > new_project` folder into the `res://` folder of your mod.
-	- The `new_project` folder has all of the required files that LORED will look for.
-4. Rename the `new_project` folder in your project to match your mod's `key`.
-5. Copy the `quickstart > exported_project` folder somewhere. This will be the folder in which you export your mod to. The name of this folder must match your mod's `key`.
-6. In your exported project folder:
-	- Fill out `info.json`.
+2. Create a new project with Godot Engine.
+	- You will have a nearly-blank `res://` folder.
+	- Copy the `quickstart > new_project` folder into the `res://` folder of your mod.
+		- This folder contains a series of folders and files, not all of which you may even use.
+		- `main.gd` and `main.tscn` are vital!
+	- Rename the `new_project` folder in your project to match your mod's `key`.
+3. Create the folder you will export your mod to.
+	- You can copy the `quickstart > exported_project` to achieve this.
+	- The name of this folder must match your mod's `key`.
+	- LORED will search this folder for `info.json`. That must be filled out.
 		- Do not use any bbcode in json files. It will be stripped from the text and could result in errors.
 	- Add an `icon.png` or `icon.svg` representing your mod.
 		- 16x16 is the recommended resolution for this icon. It will be displayed in-game at 32x32.
 
-7. **Make your mod!**
+4. **Make your mod!**
 
-8. Export the project as a PCK/Zip (it should zip it up!). Name it `mod.zip` and export it to your exported project folder (with your info and icon).
+5. Export the project!
+	- Click `Export PCK/Zip`.
 	- Ensure `Export As Patch` is checked on.
-9. (Optional) In `quickstart > data_manipulation`, you can find `data_overwrites` and `data_deletions`. If appliccable, fill these out.
+	- Name it `mod.zip` and export it to your exported project folder (with your info and icon).
+6. (Optional) Set up data manipulation files.
+	- In `quickstart > data_manipulation`, you can find `data_overwrites` and `data_deletions`. If appliccable, fill these out.
 	- Place these in the exported project folder next to your icon and info.
-10. Zip up your exported project folder! It can be named anything.
-11. To use your mod, unzip the exported project folder and place it into the LORED `mods` folder.
+7. Zip up your exported project folder! It can be named anything.
+8. To use your mod, unzip the exported project folder and place it into the LORED `mods` folder.
 	- Windows: `%USERPROFILE%/AppData/Roaming/Godot/app_userdata/LORED/mods/`
 	- Linux: `~/.local/share/godot/app_userdata/LORED/mods/`
 
