@@ -119,7 +119,8 @@ You had better run before he wakes up.
 STONE: Oh, are you stuck?
 - Yes.
 	STONE: OH! Sorry!
-	STONE: Just click on the {{get_icon_text("Arrow Up Fill")}} button. You'll get the hang of it!
+	STONE: Buy some Upgrades! Wherever you seen big square buttons, click em! And click on my {{get_icon_text("Arrow Up Fill")}} button.
+	STONE: You'll get the hang of it!
 - No.
 	STONE: Well, uhm... nice to meet you, I guess...?
 	STONE: Cya!
