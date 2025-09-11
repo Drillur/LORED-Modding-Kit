@@ -1,4 +1,4 @@
-class_name PascalCaseModKey
+class_name MyMod # PascalCaseModKey
 extends Node
 
 
@@ -18,7 +18,7 @@ const MOD_KEY: String = "mod_key"
 static var kit: Node
 
 ## A global reference to your mod. Its type must match the class_name (line 1)
-static var instance: PascalCaseModKey
+static var instance: MyMod
 
 
 #region Ready

@@ -95,10 +95,6 @@ STONE: Look at this! {{get_currency_icon_text("stone")}}
 		You have incapacitated him. What do you want to do now?
 		- Make sure he's comfortable.
 			You place him in a comfy recliner with a blanket and tea. How kind of you!
-			if get_var("got_joy_stone_found_a_rock_youd_like") == false
-				do set_var("got_joy_stone_found_a_rock_youd_like", true)
-				do add_currency("joy", 1)
-				You gain [b]1 {{get_currency_name("joy")}}[/b]!
 		- Steal his secret rocks. [if is_section_read("stone_get_secret_rocks") == false]
 			=>< stone_get_secret_rocks
 		=> END!
@@ -150,10 +146,6 @@ STONE: Just click on the {{get_icon_text("Arrow Up Fill")}} button! But it costs
 			Even I'm ashamed of you, and I'm the [i]narrator[/i], the most objective being in existence!
 			IRON_ORE: You're disgusting.
 			OIL: [i]*Starts crying hysterically.*[/i]
-			if get_var("got_grief_stone_how_do_i_level_you_up") == false
-				do set_var("got_grief_stone_how_do_i_level_you_up", true)
-				do add_currency("grief", 1)
-				You receive [b]1 {{get_currency_name("grief")}}[/b].
 			=> END!
 => END
 
@@ -267,10 +259,6 @@ STONE: What?! No! I'm artistic!
 									DEV: Catch ya later, sucka.
 					- Yeah, it still sucks.
 						STONE: Gotcha! Okay, then. I gotta go.
-						if get_var("got_grief_areyouacoustic") == false
-							do set_var("got_grief_areyouacoustic", true)
-							do add_currency("grief", 1)
-							You gain [b]{{format_number(1)}} {{get_currency_name("grief")}}[/b].
 			- Can I see it again?
 				do set_pose("stone_canvas")
 				STONE: Yeah!
