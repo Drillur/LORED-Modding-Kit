@@ -151,17 +151,15 @@ func add_lored(lored_key: StringName, json_path: String) -> void:
 	if not file:
 		print(" - FileAccess.open failed")
 		return
+	
 	var json_text := file.get_as_text()
 	var json := JSON.new()
 	json.parse(json_text)
 	LORED.data[lored_key] = json.data
 	
-	var _class_name: String = LORED.data[lored_key].get("Class", "LORED")
-	var _path: String = Main.get_class_path(_class_name)
-	if _path == "LORED":
-		LORED.new(lored_key)
-	else:
-		load(_path).new(lored_key)
+	var class_path: String = Main.get_class_path(
+			LORED.data[lored_key].get("Class", "LORED"))
+	load(class_path).new(lored_key)
 
 
 func kill_loreds(loreds_to_kill: Array[StringName] = []) -> void:
@@ -248,11 +246,9 @@ func throw_text_from_node(spawn_node: Node, text: String, icon: Texture2D = null
 
 
 func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
-	#Log.pr(add_upgrade, upgrade_key)
-	
 	var file := FileAccess.open(json_path, FileAccess.READ)
 	if not file:
-		Log.err("FileAccess.open failed")
+		printerr("FileAccess.open failed")
 		return
 	
 	var json_text := file.get_as_text()
@@ -260,12 +256,9 @@ func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	json.parse(json_text)
 	Upgrade.data[upgrade_key] = json.data
 	
-	var _class_name: String = Upgrade.data[upgrade_key].get("Class", "Upgrade")
-	var _path: String = Main.get_class_path(_class_name)
-	if _path == "Upgrade":
-		Upgrade.new(upgrade_key)
-	else:
-		load(_path).new(upgrade_key)
+	var class_path: String = Main.get_class_path(
+			Upgrade.data[upgrade_key].get("Class", "Upgrade"))
+	load(class_path).new(upgrade_key)
 
 
 func upgrade_get_times_purchased_signal(currency_key: StringName) -> Signal:
@@ -277,6 +270,11 @@ func reset_upgrades() -> void:
 		if upgrade.key == &"unlock_upgrades":
 			continue
 		upgrade.reset(10)
+
+
+func refresh_upgrades() -> void:
+	for upgrade: Upgrade in Upgrade.list.values():
+		upgrade._init_required_upgrade()
 
 
 func kill_upgrades(upgrades_to_kill: Array[StringName] = []) -> void:

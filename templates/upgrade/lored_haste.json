@@ -1,7 +1,7 @@
 {
 	"Name": "Soccer Dude",
 	"Class": "Upgrade",
-	"Hide When Locked": true,
+	"Hide Details When Locked": true,
 	"Tree": "1b",
 	"Persist": 1,
 	"Icon": "stage1",

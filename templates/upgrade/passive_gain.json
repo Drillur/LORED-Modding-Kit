@@ -1,7 +1,7 @@
 {
 	"Name": "Blue Privilege",
 	"Class": "PassiveGain",
-	"Hide When Locked": true,
+	"Hide Details When Locked": true,
 	"Required Upgrade": "ADVANTAGE",
 	"Tree": "2unique",
 	"Persist": 1,

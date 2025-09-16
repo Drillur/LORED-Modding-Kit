@@ -1,7 +1,7 @@
 {
 	"Name": "Coal LORED",
 	"Class": "Upgrade",
-	"Hide When Locked": true,
+	"Hide Details When Locked": true,
 	"Tree": "1a",
 	"Persist": 4,
 	"Icon": "coal",

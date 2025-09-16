@@ -110,6 +110,7 @@ static func kill_all() -> void:
 static func refresh_all() -> void:
 	refresh_stages()
 	refresh_trees()
+	refresh_upgrades()
 
 
 static func reset_all() -> void:
@@ -344,6 +345,11 @@ func upgrade_get_times_purchased_signal(currency_key: StringName) -> Signal:
 ## (except `unlock_upgrades` which unlocks the Upgrades window)
 static func reset_upgrades() -> void:
 	kit.reset_upgrades()
+
+
+## This will process "Required Upgrade"s for all Upgrades
+static func refresh_upgrades() -> void:
+	kit.refresh_upgrades()
 
 
 ## Remove Upgrades from memory by their keys. If `upgrades_to_kill` is empty,
