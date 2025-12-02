@@ -48,7 +48,7 @@ func _on_mods_loaded() -> void:
 	add_all_lored_resources()
 	refresh_all()
 	
-	# Alert your mod that it finished loading key elements
+	# Alert other scripts in your mod that it finished loading key elements
 	loaded.emit()
 
 
