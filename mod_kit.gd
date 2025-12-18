@@ -157,7 +157,7 @@ func add_lored(lored_key: StringName, json_path: String) -> void:
 	json.parse(json_text)
 	LORED.data[lored_key] = json.data
 	
-	var class_path: String = Main.get_class_path(
+	var class_path: String = Utility.get_class_path(
 			LORED.data[lored_key].get("Class", "LORED"))
 	load(class_path).new(lored_key)
 
@@ -256,7 +256,7 @@ func add_upgrade(upgrade_key: StringName, json_path: String) -> void:
 	json.parse(json_text)
 	Upgrade.data[upgrade_key] = json.data
 	
-	var class_path: String = Main.get_class_path(
+	var class_path: String = Utility.get_class_path(
 			Upgrade.data[upgrade_key].get("Class", "Upgrade"))
 	load(class_path).new(upgrade_key)
 
