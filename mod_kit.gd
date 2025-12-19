@@ -22,8 +22,8 @@ func _ready() -> void:
 
 
 func kill_all_else() -> void:
-	Main._prestige_buffs(10)
-	Main._prestige_dice(10)
+	Prestige._prestige_buffs(10)
+	Prestige._prestige_dice(10)
 
 
 #region Signals
