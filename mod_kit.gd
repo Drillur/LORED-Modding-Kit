@@ -30,7 +30,9 @@ func kill_all_else() -> void:
 
 
 func emit_mods_loaded() -> void:
+	Utility.cache_class_paths()
 	signals.mods_loaded.emit()
+	emit_classes_changed()
 
 
 func emit_classes_changed() -> void:
