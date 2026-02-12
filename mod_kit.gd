@@ -22,8 +22,8 @@ func _ready() -> void:
 
 
 func kill_all_else() -> void:
-	Prestige._prestige_buffs(10)
-	Prestige._prestige_dice(10)
+	Prestige.prestige_buffs(10)
+	Prestige.prestige_dice(10)
 
 
 #region Signals
@@ -235,6 +235,9 @@ func reset_stages() -> void:
 
 
 func throw_text_from_node(spawn_node: Node, text: String, icon: Texture2D = null) -> void:
+	if Settings.flying_texts.is_false():
+		return
+	
 	if icon:
 		FlyingText.new_text_with_icon(spawn_node, text, icon)
 	else:
